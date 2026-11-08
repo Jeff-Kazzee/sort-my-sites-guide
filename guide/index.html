@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Sort My Sites</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&amp;family=Nunito:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Caveat:wght@700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=block">
+<style>
+:root,[data-theme="pastel"]{--bg:#FFFBF6;--surface:#FFFEFB;--sunk:#F6F1EB;--line:#EDE5DC;--line2:#D9CFC4;--ink:#1A1714;--mid:#45403B;--soft:#6B6560;--edge:#1A1714;--btn:#F5A7B8;--btn-ink:#1A1714;--btn-sh:4px 4px 0 #E8637E;--btn-sh-h:7px 7px 0 #E8637E;--hl:#F5A7B8;--link:#5A4BB8;--focus:#7B6BD6;--mint:#E9F7F0;--lav:#EEEAFB;--pink:#FDE9EE;--peach:#FFF3D6;--teal:#E3F4F6;--sun:#FAE3A0;--mint-d:#2E8A67;--lav-d:#6A5AC8;--pink-d:#C94A66;--peach-d:#B85E22;--teal-d:#167676;--note:#FAE3A0;--note-ink:#1A1714;--body:'Nunito';--code-bg:#2A2530;--code-ink:#F6EFE6;--s-obs:#FDE9EE;--s-obs-d:#C94A66;--s-not:#E9F7F0;--s-not-d:#2E8A67;--s-cnc:#F0EBE5;--s-cnc-d:#6B6560;--s-ans:#EEEAFB;--s-ans-d:#6A5AC8;--s-spec:#FFF3D6;--s-spec-d:#B85E22;--card-sh:none;--rise:rise .7s cubic-bezier(.34,1.56,.64,1) both;--tilt:rotate(-1.2deg);--bw:2px;--glow:none}
+[data-theme="night"]{--bg:#101014;--surface:#18181c;--sunk:#202024;--line:#29282d;--line2:#39383e;--ink:#f5f2e9;--mid:#cfccd2;--soft:#a5a3aa;--edge:#39383e;--btn:#ffc24a;--btn-ink:#16130c;--btn-sh:0 0 0 1px rgba(255,194,74,.35),0 10px 30px -8px rgba(255,194,74,.35);--btn-sh-h:0 0 0 1px rgba(255,213,110,.6),0 14px 40px -8px rgba(255,194,74,.5);--hl:rgba(255,194,74,.26);--link:#ffcf6e;--focus:#ffc24a;--mint:#18181c;--lav:#18181c;--pink:#18181c;--peach:#18181c;--teal:#18181c;--sun:#1f1c15;--mint-d:#ffc24a;--lav-d:#ffc24a;--pink-d:#ffc24a;--peach-d:#ffc24a;--teal-d:#ffc24a;--note:rgba(255,194,74,.07);--note-ink:#ffd98a;--body:'Manrope';--code-bg:#0b0b0d;--code-ink:#ece8de;--s-obs:#241b1e;--s-obs-d:#ff9aae;--s-not:#18211d;--s-not-d:#86d9b4;--s-cnc:#202024;--s-cnc-d:#a5a3aa;--s-ans:#1e1c28;--s-ans-d:#c3b8ff;--s-spec:#231f16;--s-spec-d:#ffc24a;--card-sh:0 0 0 1px #29282d;--rise:fade .45s ease both;--tilt:none;--bw:1px;--glow:0 0 0 1px #29282d}
+html,body{margin:0;background:#FFFBF6}
+body{-webkit-font-smoothing:antialiased;line-height:1.65}
+a{color:var(--link);text-underline-offset:3px}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:10px}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+details[open] > summary .chev{transform:rotate(90deg)}
+::selection{background:var(--hl)}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+*{scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:10px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--soft)}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+@media print{.noprint{display:none !important}}
+</style>
+</helmet>
+
+<div data-theme="{{ theme }}" style="min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--body),system-ui,sans-serif;line-height:1.65;transition:background .3s,color .3s">
+
+<header class="noprint" style="position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1.5px solid var(--line)">
+  <div style="max-width:1360px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+    <a href="#/" style="display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)">
+      <span aria-hidden="true" style="width:40px;height:40px;border-radius:50%;background:var(--lav);border:var(--bw) solid var(--edge);display:grid;place-items:center;font-size:18px;color:var(--lav-d);box-shadow:var(--card-sh)">✦</span>
+      <span style="display:flex;flex-direction:column;line-height:1.02">
+        <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:22px">{{ L.t1 }}</span>
+        <span style="font-family:Caveat,cursive;font-weight:700;font-size:17px;color:var(--soft)">{{ L.t2 }}</span>
+      </span>
+    </a>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:10px">
+      <div role="group" aria-label="{{ L.t218 }}" style="display:flex;padding:3px;border-radius:999px;border:1.5px solid var(--line2);background:var(--surface)">
+        <sc-for list="{{ langOpts }}" as="o" hint-placeholder-count="2">
+          <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font:inherit;font-weight:800;font-size:13px;padding:5px 12px;border-radius:999px;border:0;cursor:pointer;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button>
+        </sc-for>
+      </div>
+      <div role="group" aria-label="{{ L.t219 }}" style="display:flex;padding:3px;border-radius:999px;border:1.5px solid var(--line2);background:var(--surface)">
+        <sc-for list="{{ themeOpts }}" as="o" hint-placeholder-count="2">
+          <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" aria-label="{{ o.aria }}" style="font:inherit;display:flex;align-items:center;gap:5px;font-weight:800;font-size:13px;padding:5px 12px;border-radius:999px;border:0;cursor:pointer;background:{{ o.bg }};color:{{ o.fg }}"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;font-feature-settings:'liga'">{{ o.icon }}</span>{{ o.label }}</button>
+        </sc-for>
+      </div>
+      <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" style="font:inherit;display:{{ menuDisplay }};align-items:center;gap:6px;font-weight:800;font-size:14px;padding:8px 14px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga'">menu</span>{{ L.menu }}</button>
+    </div>
+  </div>
+</header>
+
+<div style="max-width:1360px;margin:0 auto;display:flex;gap:0;align-items:flex-start">
+
+<sc-if value="{{ showBackdrop }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ toggleMenu }}" aria-hidden="true" style="position:fixed;left:0;right:0;top:65px;bottom:0;background:rgba(12,11,14,0.42);backdrop-filter:blur(2px);z-index:24"></div>
+</sc-if>
+<sc-if value="{{ showSide }}" hint-placeholder-val="{{ true }}">
+<nav aria-label="{{ L.navLabel }}" class="noprint" style="flex:0 0 {{ sideW }};width:{{ sideW }};position:{{ sidePos }};top:65px;left:0;height:calc(100vh - 65px);overflow-y:auto;overflow-x:hidden;scrollbar-gutter:stable;padding:18px 10px 32px 16px;box-sizing:border-box;background:var(--bg);border-right:1px solid var(--line);z-index:25;box-shadow:{{ sideShadow }};transition:width .28s cubic-bezier(.2,.8,.2,1),flex-basis .28s cubic-bezier(.2,.8,.2,1)">
+  <button type="button" onClick="{{ toggleCollapse }}" aria-label="{{ collapseAria }}" aria-expanded="{{ sideOpen }}" style="font:inherit;display:{{ collapseBtnDisp }};align-items:center;gap:10px;width:100%;padding:7px 10px;margin:0 0 14px;border:0;border-radius:12px;background:transparent;color:var(--soft);font-weight:700;font-size:13px;cursor:pointer;justify-content:{{ collapseJustify }}" style-hover="background:var(--sunk);color:var(--ink)">
+    <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga'">{{ collapseIcon }}</span><span style="display:{{ labelDisp }}">{{ L.collapse }}</span>
+  </button>
+  <sc-for list="{{ navSections }}" as="sec" hint-placeholder-count="4">
+    <div style="margin-bottom:18px">
+      <div style="display:{{ labelDisp }};font-weight:800;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);padding:0 10px 6px;white-space:nowrap">{{ sec.label }}</div>
+      <div style="display:{{ ruleDisp }};height:1px;background:var(--line);margin:0 8px 8px"></div>
+      <sc-for list="{{ sec.items }}" as="n" hint-placeholder-count="4">
+        <a href="{{ n.href }}" onClick="{{ n.click }}" aria-current="{{ n.current }}" title="{{ n.tip }}" style="display:flex;align-items:center;gap:11px;padding:7px 10px;border-radius:11px;text-decoration:none;color:var(--ink);font-weight:{{ n.weight }};font-size:14.5px;background:{{ n.bg }};margin-bottom:1px;white-space:nowrap;justify-content:{{ collapseJustify }};box-shadow:{{ n.ring }}" style-hover="background:var(--sunk)">
+          <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga';color:{{ n.iconColor }};flex:none">{{ n.icon }}</span>
+          <span style="flex:1;display:{{ labelDisp }};overflow:hidden;text-overflow:ellipsis">{{ n.label }}</span>
+          <span style="display:{{ labelDisp }};font-size:11.5px;font-weight:700;color:var(--soft);font-variant-numeric:tabular-nums">{{ n.count }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </sc-for>
+  <div style="display:{{ labelDisp }};margin:6px 6px 0;padding:14px;border-radius:16px;background:var(--note);color:var(--note-ink);transform:var(--tilt)">
+    <div style="font-family:Caveat,cursive;font-size:21px;line-height:1.1">{{ zagrebLine }}</div>
+    <div style="font-size:12.5px;font-weight:700;line-height:1.45;margin-top:4px">{{ L.sideNote }}</div>
+  </div>
+</nav>
+</sc-if>
+
+<main id="main" style="flex:1 1 640px;min-width:0;padding:0 28px 96px;box-sizing:border-box">
+
+<sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:140px 0;text-align:center;font-family:Caveat,cursive;font-size:30px;color:var(--soft)">{{ L.t4 }}</div>
+</sc-if>
+
+
+
+<!-- START -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="padding:46px 0 30px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end">
+    <div style="flex:1 1 560px;min-width:0">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">{{ L.t6 }}</div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(44px,6.2vw,82px);line-height:.98;margin:14px 0 18px;text-wrap:balance">{{ L.t7 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t8 }}</em></h1>
+      <p style="font-size:19px;color:var(--mid);max-width:620px;margin:0;text-wrap:pretty">{{ L.t9 }}</p>
+    </div>
+    <div style="flex:0 1 240px;font-family:Caveat,cursive;font-size:24px;line-height:1.15;color:var(--pink-d);transform:var(--tilt)">{{ L.t10 }}</div>
+  </section>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px">
+    <sc-for list="{{ asks }}" as="q" hint-placeholder-count="8">
+      <a href="{{ q.href }}" style="display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:24px;background:{{ q.tint }};text-decoration:none;color:var(--ink);border:2px solid transparent;animation:var(--rise);animation-delay:{{ q.delay }};transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .15s;box-shadow:var(--card-sh)" style-hover="transform:translateY(-4px);border-color:var(--edge)">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:400;font-size:44px;line-height:.85;letter-spacing:-0.05em;color:{{ q.accent }}">{{ q.n }}</span>
+          <span aria-hidden="true" style="width:40px;height:40px;border-radius:13px;background:var(--surface);display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga';color:{{ q.accent }}">{{ q.icon }}</span>
+        </div>
+        <div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:22px;line-height:1.15">{{ q.t }}</div>
+        <div style="font-size:14.5px;color:var(--mid);line-height:1.5">{{ q.a }}</div>
+        <div style="margin-top:auto;padding-top:6px;font-weight:800;font-size:14px">{{ q.cta }} →</div>
+      </a>
+    </sc-for>
+  </div>
+
+  <section style="margin-top:58px">
+    <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+      <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:40px;margin:0">{{ L.t11 }} <em style="font-style:italic;font-weight:300">{{ L.t12 }}</em></h2>
+      <span style="font-family:Caveat,cursive;font-size:23px;color:var(--lav-d)">{{ L.t13 }}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ weekCols }};gap:14px">
+      <sc-for list="{{ thisWeek }}" as="w" hint-placeholder-count="3">
+        <a href="{{ w.href }}" style="position:relative;display:flex;flex-direction:column;gap:10px;min-height:260px;box-sizing:border-box;padding:26px;border-radius:28px;background:{{ w.tint }};text-decoration:none;color:var(--ink);border:var(--bw) solid var(--edge);animation:var(--rise);animation-delay:{{ w.delay }};transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .2s" style-hover="transform:translate(-3px,-3px);box-shadow:var(--btn-sh-h)">
+          <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:400;font-size:70px;line-height:.8;letter-spacing:-0.05em;color:{{ w.accent }}">{{ w.n }}</span>
+          <div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:25px;line-height:1.12;margin-top:8px">{{ w.t }}</div>
+          <div style="font-size:15px;color:var(--mid)">{{ w.d }}</div>
+          <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px 10px;flex-wrap:wrap">
+            <span style="font-family:Caveat,cursive;font-size:22px;line-height:1">{{ w.note }}</span>
+            <span style="font-weight:800;font-size:14px;white-space:nowrap">{{ w.status }} →</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px">
+    <div style="padding:22px 24px;border-radius:24px;background:var(--code-bg);color:var(--code-ink)">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:#ffc24a">terminal</span><span style="font-weight:800;font-size:17px">{{ L.t15 }}</span><span style="margin-left:auto;font-size:12.5px;opacity:.75">{{ L.t16 }}</span></div>
+      <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,0.06);border-radius:14px;padding:12px 14px">
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px;flex:1;min-width:0;overflow-wrap:anywhere"><span style="color:#ffc24a">$</span> {{ runCmd }}</code>
+        <button type="button" onClick="{{ copyRun }}" style="font:inherit;font-size:12.5px;font-weight:800;padding:6px 12px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer;flex:none">{{ copyRunLabel }}</button>
+      </div>
+      <div style="font-size:13.5px;margin-top:10px;opacity:.85">{{ L.t17 }}</div>
+    </div>
+    <a href="#/questions" style="display:flex;flex-direction:column;gap:6px;padding:22px 24px;border-radius:24px;background:var(--surface);border:var(--bw) solid var(--edge);text-decoration:none;color:var(--ink)" style-hover="box-shadow:var(--btn-sh-h)">
+      <div style="display:flex;align-items:center;gap:10px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:var(--lav-d)">quiz</span><span style="font-weight:800;font-size:17px">{{ L.t19 }}</span><span style="margin-left:auto;font-size:13px;font-weight:800;color:var(--soft)">{{ qStats.answered }} {{ L.t20 }} {{ qStats.total }}</span></div>
+      <div style="color:var(--mid);font-size:15px">{{ L.t21 }}</div>
+      <div style="height:8px;border-radius:8px;background:var(--sunk);overflow:hidden;margin-top:auto"><div style="height:100%;width:{{ qStats.barW }};background:var(--lav-d);border-radius:8px"></div></div>
+    </a>
+  </div>
+
+  <section style="margin-top:58px">
+    <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px">
+      <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:36px;margin:0">{{ L.t22 }}</h2>
+      <a href="#/dates" style="font-weight:800;font-size:14px">{{ L.t23 }}</a>
+    </div>
+    <p style="margin:0 0 16px;color:var(--mid)">{{ L.t24 }}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px">
+      <sc-for list="{{ comingUp }}" as="c" hint-placeholder-count="4">
+        <a href="{{ c.href }}" style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:22px;background:{{ c.bg }};text-decoration:none;color:var(--ink);border:1.5px solid var(--line)" style-hover="border-color:var(--edge)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:21px;letter-spacing:-0.02em">{{ c.d }}</span><span style="font-family:Caveat,cursive;font-size:21px">{{ c.when }}</span></div>
+          <div style="font-weight:800;line-height:1.35">{{ c.h }}</div>
+          <span style="align-self:flex-start;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:999px;background:var(--surface)">{{ c.tag }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="margin-top:58px">
+    <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:36px;margin:0 0 4px">{{ L.t25 }}</h2>
+    <p style="color:var(--mid);margin:0 0 22px;max-width:640px">{{ L.t26 }}</p>
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="6">
+      <div style="margin-bottom:26px">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:10px">✦ {{ g.name }}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+          <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="3">
+            <a href="{{ c.href }}" style="display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:22px;background:{{ c.tint }};text-decoration:none;color:var(--ink);border:2px solid transparent;transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .15s;box-shadow:var(--card-sh)" style-hover="transform:translateY(-4px);border-color:var(--edge)">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span aria-hidden="true" style="width:40px;height:40px;border-radius:13px;background:var(--surface);display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:23px;line-height:1;font-feature-settings:'liga';color:{{ c.accent }}">{{ c.icon }}</span>
+                <span style="font-size:12.5px;font-weight:800;color:var(--mid)">{{ c.progressLabel }}</span>
+              </div>
+              <div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:20px;line-height:1.15">{{ c.title }}</div>
+              <div style="height:5px;border-radius:5px;background:var(--sunk);overflow:hidden;margin-top:auto"><div style="height:100%;width:{{ c.barW }};background:{{ c.accent }}"></div></div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+</sc-if>
+
+<!-- REPORT -->
+<sc-if value="{{ isReportEmpty }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:46px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.report }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(40px,5.6vw,68px);line-height:1;margin:10px 0 12px">{{ L.t27 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t28 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:620px;font-size:17px">{{ L.t29 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:22px">
+    <sc-for list="{{ mySites }}" as="s" hint-placeholder-count="4">
+      <div style="padding:20px;border-radius:24px;background:var(--surface);border:1.5px dashed var(--line2);animation:var(--rise);animation-delay:{{ s.delay }}">
+        <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px">{{ s.domain }}</div>
+        <div style="font-size:13.5px;color:var(--mid);font-weight:700">{{ s.role }} · {{ s.lang }}</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:14px;font-size:13px;font-weight:800;color:var(--mid)"><span style="width:9px;height:9px;border-radius:50%;border:2px solid var(--line2)"></span>{{ L.t30 }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:stretch">
+    <div style="flex:2 1 420px;padding:22px 24px;border-radius:24px;background:var(--code-bg);color:var(--code-ink)">
+      <div style="font-weight:800;margin-bottom:10px">{{ L.t31 }}</div>
+      <div style="display:flex;gap:10px;align-items:center;background:rgba(255,255,255,0.06);border-radius:14px;padding:12px 14px">
+        <code style="font-family:'JetBrains Mono',monospace;font-size:13px;flex:1;min-width:0;overflow-wrap:anywhere"><span style="color:#ffc24a">$</span> {{ runCmd }}</code>
+        <button type="button" onClick="{{ copyRun }}" style="font:inherit;font-size:12.5px;font-weight:800;padding:6px 12px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer;flex:none">{{ copyRunLabel }}</button>
+      </div>
+      <div style="font-size:13.5px;margin-top:10px;opacity:.85">{{ L.t32 }}</div>
+    </div>
+    
+  </div>
+</sc-if>
+
+<sc-if value="{{ isReport }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ showExampleBanner }}" hint-placeholder-val="{{ true }}">
+  <div class="noprint" style="margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:10px 16px;border-radius:14px;background:var(--sun);font-size:14px;font-weight:700">
+    <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;font-feature-settings:'liga'">science</span>
+    {{ L.t34 }}
+    <button type="button" onClick="{{ hideExample }}" style="margin-left:auto;white-space:nowrap;font:inherit;font-weight:800;font-size:13px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer">{{ L.t35 }}</button>
+  </div>
+  </sc-if>
+  <section style="padding:44px 0 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end">
+    <div style="flex:1 1 480px;min-width:0">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.report }} {{ reportTag }}</div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(40px,5.6vw,68px);line-height:1;margin:10px 0 12px">{{ L.t37 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t38 }}</em></h1>
+      <p style="margin:0;color:var(--mid);font-size:15px;font-family:'JetBrains Mono',monospace">{{ run.when }} {{ L.t39 }} {{ run.prev }} · {{ run.engine }}</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+      <button type="button" onClick="{{ rerunAll }}" style="font:inherit;display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:12px 22px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer;box-shadow:var(--btn-sh);transition:box-shadow .15s,transform .15s" style-hover="box-shadow:var(--btn-sh-h);transform:translate(-2px,-2px)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga'">refresh</span>{{ rerunLabel }}</button>
+      <span style="font-size:13px;color:var(--soft);font-weight:700">{{ L.t41 }}</span>
+    </div>
+  </section>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:28px">
+    <sc-for list="{{ stateTiles }}" as="s" hint-placeholder-count="5">
+      <button type="button" onClick="{{ s.pick }}" aria-pressed="{{ s.on }}" style="font:inherit;text-align:left;padding:16px 18px;border-radius:20px;background:{{ s.bg }};border:var(--bw) solid {{ s.border }};cursor:pointer;color:var(--ink)">
+        <div style="display:flex;align-items:center;gap:8px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga';color:{{ s.d }}">{{ s.icon }}</span><span style="font-family:Fraunces,serif;font-weight:500;font-size:34px;line-height:1;letter-spacing:-0.03em">{{ s.n }}</span></div>
+        <div style="font-weight:800;font-size:13.5px;margin-top:6px">{{ s.label }}</div>
+      </button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:32px">
+    <sc-for list="{{ siteCards }}" as="s" hint-placeholder-count="3">
+      <div style="padding:20px;border-radius:24px;background:var(--surface);border:1.5px solid var(--line);box-shadow:var(--card-sh)">
+        <div style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px">{{ s.domain }}</div>
+        <div style="font-size:13.5px;color:var(--mid);font-weight:700">{{ s.role }} · {{ s.pages }}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 14px">
+          <sc-for list="{{ s.stack }}" as="p" hint-placeholder-count="2"><span style="font-size:12px;font-weight:800;padding:2px 10px;border-radius:999px;border:1.5px solid var(--line2)">{{ p }}</span></sc-for>
+        </div>
+        <div aria-hidden="true" style="display:flex;height:12px;border-radius:12px;overflow:hidden;gap:2px">
+          <sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="3"><span style="flex:{{ g.n }};background:{{ g.d }}"></span></sc-for>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;font-weight:700;color:var(--mid)">
+          <sc-for list="{{ s.segs }}" as="g" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:{{ g.d }}"></span>{{ g.n }} {{ g.label }}</span></sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <section style="margin-bottom:34px;padding:22px 24px;border-radius:24px;background:var(--sunk)">
+    <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:24px;margin:0 0 12px">{{ L.t42 }} {{ run.prev }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+      <div><div style="font-weight:800;font-size:13px;display:flex;gap:6px;align-items:center;margin-bottom:6px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga';color:var(--s-not-d)">task_alt</span>{{ L.t44 }} {{ diff.fixedN }}</div>
+        <sc-for list="{{ diff.fixed }}" as="x" hint-placeholder-count="2"><div style="font-size:14.5px;padding:3px 0"><span style="text-decoration:line-through;text-decoration-color:var(--s-not-d)">{{ x.t }}</span> <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft)">{{ x.site }}</span></div></sc-for></div>
+      <div><div style="font-weight:800;font-size:13px;display:flex;gap:6px;align-items:center;margin-bottom:6px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga';color:var(--s-obs-d)">fiber_new</span>{{ L.t46 }} {{ diff.addedN }}</div>
+        <sc-for list="{{ diff.added }}" as="x" hint-placeholder-count="1"><a href="{{ x.href }}" style="display:block;font-size:14.5px;padding:3px 0">{{ x.t }} <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--soft)">{{ x.site }}</span></a></sc-for></div>
+      <div><div style="font-weight:800;font-size:13px;display:flex;gap:6px;align-items:center;margin-bottom:6px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga';color:var(--soft)">pending</span>{{ L.t48 }} {{ diff.openN }}</div>
+        <div style="font-size:14.5px;color:var(--mid)">{{ L.t49 }}</div></div>
+    </div>
+  </section>
+
+  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+    <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0">{{ findingsHeading }}</h2>
+    <sc-if value="{{ filtered }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearFilter }}" style="font:inherit;font-weight:800;font-size:13.5px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line2);background:transparent;color:var(--ink);cursor:pointer">{{ L.t50 }}</button></sc-if>
+  </div>
+  <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px">
+    <sc-for list="{{ findingRows }}" as="f" hint-placeholder-count="8">
+      <li style="animation:var(--rise);animation-delay:{{ f.delay }}">
+        <a href="{{ f.href }}" style="display:flex;gap:14px;align-items:center;padding:14px 18px;border-radius:20px;background:var(--surface);border:1.5px solid var(--line);text-decoration:none;color:var(--ink);flex-wrap:wrap" style-hover="border-color:var(--edge)">
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;padding:4px 11px 4px 8px;border-radius:999px;background:{{ f.bg }};min-width:150px;box-sizing:border-box"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;font-feature-settings:'liga';color:{{ f.d }}">{{ f.icon }}</span>{{ f.stateLabel }}</span>
+          <span style="flex:1 1 280px;min-width:0"><span style="display:block;font-weight:800;font-size:16.5px;line-height:1.35">{{ f.title }}</span><span style="font-size:13px;color:var(--soft);font-weight:700">{{ f.area }}</span></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--mid)">{{ f.site }}</span>
+          <span style="font-size:13px;font-weight:800;color:var(--mid);min-width:56px;text-align:right">{{ f.time }}</span>
+          <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga';color:var(--soft)">arrow_forward</span>
+        </a>
+      </li>
+    </sc-for>
+  </ol>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:28px">
+    <a href="#/consent" style="flex:1 1 240px;display:flex;gap:12px;align-items:center;padding:18px 20px;border-radius:22px;background:var(--teal);text-decoration:none;color:var(--ink);box-shadow:var(--card-sh)" style-hover="box-shadow:var(--btn-sh-h)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;font-feature-settings:'liga';color:var(--teal-d)">view_column</span><span><strong>{{ L.t53 }}</strong><br><span style="font-size:14px;color:var(--mid)">{{ L.t54 }}</span></span></a>
+    <a href="#/dns" style="flex:1 1 240px;display:flex;gap:12px;align-items:center;padding:18px 20px;border-radius:22px;background:var(--lav);text-decoration:none;color:var(--ink);box-shadow:var(--card-sh)" style-hover="box-shadow:var(--btn-sh-h)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;font-feature-settings:'liga';color:var(--lav-d)">dns</span><span><strong>{{ L.t56 }}</strong><br><span style="font-size:14px;color:var(--mid)">{{ L.t57 }}</span></span></a>
+    <a href="#/agent" style="flex:1 1 240px;display:flex;gap:12px;align-items:center;padding:18px 20px;border-radius:22px;background:var(--peach);text-decoration:none;color:var(--ink);box-shadow:var(--card-sh)" style-hover="box-shadow:var(--btn-sh-h)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;font-feature-settings:'liga';color:var(--peach-d)">smart_toy</span><span><strong>{{ L.t59 }}</strong><br><span style="font-size:14px;color:var(--mid)">{{ L.t60 }}</span></span></a>
+  </div>
+</sc-if>
+
+<!-- FINDING -->
+<sc-if value="{{ isFinding }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:36px 0 8px">
+    <a href="#/report" style="font-weight:700;font-size:14px;text-decoration:none;color:var(--mid)">← {{ L.report }}</a>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:18px">
+      <span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;padding:5px 12px 5px 9px;border-radius:999px;background:{{ fd.bg }}"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga';color:{{ fd.d }}">{{ fd.icon }}</span>{{ fd.stateLabel }}</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;padding:4px 11px;border-radius:999px;border:1.5px solid var(--line2)">{{ fd.site }}</span>
+      <span style="font-size:13px;font-weight:800;color:var(--soft)">{{ fd.area }}</span>
+    </div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(36px,5vw,60px);line-height:1.02;margin:14px 0 14px;max-width:900px;text-wrap:balance">{{ fd.title }}</h1>
+    <p style="font-size:21px;line-height:1.55;margin:0;max-width:760px;text-wrap:pretty">{{ fd.sentence }}</p>
+    <sc-if value="{{ fd.hasHr }}" hint-placeholder-val="{{ false }}">
+      <p lang="hr" style="margin:12px 0 0;display:inline-flex;gap:8px;align-items:baseline;padding:8px 14px;border-radius:14px;background:var(--sunk);font-size:15px;color:var(--mid)"><strong style="font-size:11px;letter-spacing:.12em;color:var(--ink)">HR</strong>{{ fd.hr }}</p>
+    </sc-if>
+  </section>
+
+  <div style="display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start;margin-top:28px">
+    <div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:22px">
+      <details open="{{ true }}" style="border-radius:24px;background:var(--surface);border:1.5px solid var(--line);padding:18px 22px">
+        <summary style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px"><span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga';transition:transform .15s;color:var(--lav-d)">chevron_right</span>{{ L.t62 }}<span style="font-weight:700;font-size:13px;color:var(--soft);margin-left:auto">{{ L.t63 }}</span></summary>
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{ fd.evidence }}" as="e" hint-placeholder-count="3">
+            <div style="display:grid;grid-template-columns:86px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:9px 12px;border-radius:12px;background:var(--sunk);font-family:'JetBrains Mono',monospace;font-size:13px">
+              <span style="font-weight:600;color:var(--soft);text-transform:uppercase;font-size:11px;letter-spacing:.08em">{{ e.k }}</span>
+              <span style="min-width:0;overflow-wrap:anywhere"><strong style="font-weight:600">{{ e.a }}</strong> {{ e.b }}</span>
+              <span style="color:var(--mid);white-space:nowrap">{{ e.c }}</span>
+            </div>
+          </sc-for>
+          <sc-if value="{{ fd.hasShot }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:6px;height:220px;border-radius:16px;border:1.5px solid var(--line2);background:repeating-linear-gradient(135deg,var(--sunk) 0 10px,var(--surface) 10px 20px);display:grid;place-items:center">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;padding:6px 12px;border-radius:8px;background:var(--surface);color:var(--mid)">{{ L.t64 }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </details>
+
+      <section style="padding:22px 24px;border-radius:24px;background:var(--lav);box-shadow:var(--card-sh)">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)">{{ L.t65 }}</div>
+        <p style="margin:8px 0 12px;font-size:17px">{{ fd.why }}</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ fd.claims }}" as="c" hint-placeholder-count="2">
+            <a href="{{ c.href }}" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;padding:5px 12px;border-radius:999px;background:var(--surface);border:1.5px solid var(--edge);text-decoration:none;color:var(--ink)" style-hover="box-shadow:2px 2px 0 var(--edge)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;font-feature-settings:'liga'">menu_book</span><span style="font-family:'JetBrains Mono',monospace;font-weight:600">{{ c.id }}</span><span style="color:var(--mid);font-weight:700">{{ c.name }}</span></a>
+          </sc-for>
+          <sc-if value="{{ fd.noClaims }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:800;padding:5px 12px;border-radius:999px;background:var(--surface)">{{ L.t67 }}</span></sc-if>
+        </div>
+      </section>
+
+      <sc-if value="{{ fd.hasFix }}" hint-placeholder-val="{{ true }}">
+        <section style="border-radius:24px;border:var(--bw) solid var(--edge);overflow:hidden;background:var(--surface)">
+          <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;flex-wrap:wrap;border-bottom:1.5px solid var(--line)">
+            <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em">{{ L.t68 }}</span>
+            <div role="tablist" aria-label="{{ L.t220 }}" style="display:flex;gap:4px;flex-wrap:wrap">
+              <sc-for list="{{ fd.tabs }}" as="t" hint-placeholder-count="2">
+                <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="font:inherit;font-size:13px;font-weight:800;padding:5px 13px;border-radius:999px;border:1.5px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }};cursor:pointer">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <span style="margin-left:auto;font-size:13px;font-weight:700;color:var(--mid)">{{ L.t69 }} {{ fd.stack }}</span>
+          </div>
+          <div style="position:relative;background:var(--code-bg);color:var(--code-ink)">
+            <pre style="margin:0;padding:20px 22px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;tab-size:2"><code>{{ fd.code }}</code></pre>
+            <button type="button" onClick="{{ fd.copy }}" style="position:absolute;top:12px;right:12px;font:inherit;font-size:12.5px;font-weight:800;padding:6px 12px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer">{{ fd.copyLabel }}</button>
+          </div>
+        </section>
+      </sc-if>
+
+      <section style="display:flex;gap:16px;flex-wrap:wrap;align-items:stretch">
+        <div style="flex:1 1 300px;padding:20px 22px;border-radius:24px;background:var(--mint);box-shadow:var(--card-sh)">
+          <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)">{{ L.t70 }}</div>
+          <p style="margin:8px 0 0">{{ fd.verify }}</p>
+        </div>
+        <div style="flex:1 1 240px;padding:20px 22px;border-radius:24px;background:var(--surface);border:1.5px solid var(--line);display:flex;flex-direction:column;gap:10px">
+          <button type="button" onClick="{{ fd.recheck }}" style="font:inherit;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:10px 18px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer;box-shadow:var(--btn-sh);transition:box-shadow .15s,transform .15s" style-hover="box-shadow:var(--btn-sh-h);transform:translate(-2px,-2px)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;font-feature-settings:'liga'">refresh</span>{{ fd.recheckLabel }}</button>
+          <sc-if value="{{ fd.hasResult }}" hint-placeholder-val="{{ false }}">
+            <div role="status" style="display:flex;gap:8px;align-items:flex-start;padding:10px 12px;border-radius:14px;background:{{ fd.resBg }};font-size:14.5px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1.3;font-feature-settings:'liga';color:{{ fd.resD }}">{{ fd.resIcon }}</span><span>{{ fd.resText }}</span></div>
+          </sc-if>
+          
+        </div>
+      </section>
+    </div>
+
+    <aside style="flex:0 1 280px;display:flex;flex-direction:column;gap:14px;position:sticky;top:90px">
+      <div style="padding:18px 20px;border-radius:22px;background:var(--surface);border:1.5px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:8px 12px;font-size:14.5px">
+        <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1.2;font-feature-settings:'liga';color:var(--soft)">schedule</span><span><strong>{{ fd.time }}</strong> {{ L.t72 }}</span>
+        <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1.2;font-feature-settings:'liga';color:var(--soft)">person</span><span>{{ fd.who }}</span>
+      </div>
+      <a href="{{ fd.topicHref }}" style="padding:18px 20px;border-radius:22px;background:var(--note);color:var(--note-ink);text-decoration:none;transform:var(--tilt)"><span style="font-family:Caveat,cursive;font-size:22px;line-height:1">{{ L.t74 }}</span><br><strong style="font-size:15px">{{ fd.topicTitle }} →</strong></a>
+      <div style="display:flex;gap:8px">
+        <a href="{{ fd.prevHref }}" aria-label="{{ L.t221 }}" style="flex:1;text-align:center;padding:10px;border-radius:999px;border:1.5px solid var(--line2);text-decoration:none;color:var(--ink);font-weight:800;font-size:14px">{{ L.t75 }}</a>
+        <a href="{{ fd.nextHref }}" aria-label="{{ L.t222 }}" style="flex:1;text-align:center;padding:10px;border-radius:999px;border:1.5px solid var(--line2);text-decoration:none;color:var(--ink);font-weight:800;font-size:14px">{{ L.t76 }}</a>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- CONSENT -->
+<sc-if value="{{ isConsent }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.consent }} · <span style="font-family:'JetBrains Mono',monospace;text-transform:none;letter-spacing:0">{{ cs.site }}</span></div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px;max-width:900px">{{ L.t77 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t78 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:640px;font-size:17px">{{ cs.intro }}</p>
+    <sc-if value="{{ hasConsentSites }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:18px">
+        <sc-for list="{{ consentSites }}" as="c" hint-placeholder-count="4">
+          <button type="button" onClick="{{ c.pick }}" style="font-family:'JetBrains Mono',monospace;font-size:13px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--edge);background:{{ c.bg }};color:{{ c.fg }};cursor:pointer">{{ c.domain }}</button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">
+    <sc-for list="{{ cs.panes }}" as="p" hint-placeholder-count="4">
+      <figure style="margin:0;border-radius:20px;border:var(--bw) solid var(--edge);background:var(--surface);overflow:hidden;display:flex;flex-direction:column;animation:var(--rise);animation-delay:{{ p.delay }}">
+        <div style="display:flex;align-items:center;gap:6px;padding:10px 12px;background:var(--sunk);border-bottom:1.5px solid var(--line)">
+          <span style="width:10px;height:10px;border-radius:50%;background:#F5A7B8"></span><span style="width:10px;height:10px;border-radius:50%;background:#FAE3A0"></span><span style="width:10px;height:10px;border-radius:50%;background:#A8E6CF"></span>
+          <span style="flex:1;margin-left:8px;padding:3px 10px;border-radius:8px;background:var(--surface);font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--mid);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">{{ cs.url }}</span>
+        </div>
+        <div style="padding:16px 16px 6px">
+          <div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:Fraunces,serif;font-weight:500;font-size:30px;line-height:1;color:var(--pink-d)">{{ p.id }}</span><span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em">{{ p.label }}</span></div>
+          <div style="font-size:13px;font-weight:700;color:var(--soft);margin-top:2px">{{ p.sub }}</div>
+        </div>
+        <div style="padding:8px 16px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:6px">{{ L.t79 }} {{ p.reqN }}</div>
+          <sc-for list="{{ p.requests }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;padding:3px 0"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:{{ r.dot }}"></span><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ r.host }}</span><span style="color:var(--soft)">{{ r.type }}</span></div>
+          </sc-for>
+        </div>
+        <div style="padding:8px 16px 14px">
+          <div style="font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:6px">{{ L.t80 }} {{ p.stoN }}</div>
+          <sc-for list="{{ p.storage }}" as="r" hint-placeholder-count="2">
+            <div style="display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;padding:3px 0"><span style="width:8px;height:8px;border-radius:50%;flex:none;background:{{ r.dot }}"></span><span style="flex:1;min-width:0">{{ r.name }}</span><span style="color:var(--soft)">{{ r.kind }}</span></div>
+          </sc-for>
+        </div>
+        <figcaption style="margin-top:auto;padding:12px 16px;background:{{ p.noteBg }};font-size:14px;font-weight:700;border-top:1.5px solid var(--line)">{{ p.note }}</figcaption>
+      </figure>
+    </sc-for>
+  </div>
+  <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:13.5px;font-weight:700;color:var(--mid)">
+    <sc-if value="{{ cs.hasData }}" hint-placeholder-val="{{ false }}"><span style="display:flex;gap:6px;align-items:center"><span style="width:10px;height:10px;border-radius:50%;background:var(--s-obs-d)"></span>{{ L.t81 }}</span></sc-if>
+    <sc-if value="{{ cs.hasData }}" hint-placeholder-val="{{ false }}"><span style="display:flex;gap:6px;align-items:center"><span style="width:10px;height:10px;border-radius:50%;background:var(--s-not-d)"></span>{{ L.t82 }}</span></sc-if>
+    <sc-if value="{{ cs.hasData }}" hint-placeholder-val="{{ false }}"><span style="display:flex;gap:6px;align-items:center"><span style="width:10px;height:10px;border-radius:50%;background:var(--s-ans-d)"></span>{{ legendCheck }}</span></sc-if>
+    <a href="#/topic/analytics" style="margin-left:auto">{{ L.t83 }}</a>
+  </div>
+</sc-if>
+
+<!-- DNS -->
+<sc-if value="{{ isDns }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 24px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.dns }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t84 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t85 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:660px;font-size:17px">{{ L.t86 }}</p>
+  </section>
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <sc-for list="{{ dnsDomains }}" as="dm" hint-placeholder-count="3">
+      <section style="border-radius:26px;background:var(--surface);border:1.5px solid var(--line);overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 22px;background:var(--sunk)">
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:18px">{{ dm.domain }}</span>
+          <span style="font-size:13.5px;font-weight:700;color:var(--mid);white-space:nowrap">{{ L.t87 }} {{ dm.sends }}</span>
+          <button type="button" onClick="{{ dm.recheck }}" style="margin-left:auto;white-space:nowrap;font:inherit;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;padding:6px 14px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;font-feature-settings:'liga'">refresh</span>{{ dm.recheckLabel }}</button>
+        </div>
+        <sc-for list="{{ dm.rows }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;gap:14px;flex-wrap:wrap;padding:16px 22px;border-top:1.5px solid var(--line);align-items:flex-start">
+            <div style="flex:0 0 120px;display:flex;flex-direction:column;gap:6px">
+              <span style="font-weight:800;font-size:15px">{{ r.type }}</span>
+              <span style="display:inline-flex;align-self:flex-start;align-items:center;gap:5px;font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;background:{{ r.bg }}"><span style="width:7px;height:7px;border-radius:50%;background:{{ r.dot }}"></span>{{ r.stateLabel }}</span>
+            </div>
+            <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:8px">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--soft)">{{ r.name }}</div>
+              <div style="display:grid;grid-template-columns:72px minmax(0,1fr);gap:6px 10px;align-items:baseline">
+                <span style="font-size:12px;font-weight:800;color:var(--soft)">{{ L.now }}</span><code style="font-family:'JetBrains Mono',monospace;font-size:13px;overflow-wrap:anywhere">{{ r.now }}</code>
+                <sc-if value="{{ r.hasNext }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-size:12px;font-weight:800;color:var(--pink-d)">{{ L.add }}</span>
+                  <div style="display:flex;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;background:var(--code-bg);color:var(--code-ink);min-width:0">
+                    <code style="font-family:'JetBrains Mono',monospace;font-size:13px;flex:1;min-width:0;overflow-wrap:anywhere">{{ r.next }}</code>
+                    <button type="button" onClick="{{ r.copy }}" style="font:inherit;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer;flex:none">{{ r.copyLabel }}</button>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="font-size:14.5px;color:var(--mid)">{{ r.note }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+  </div>
+  <a href="#/topic/inbox" style="display:inline-block;margin-top:22px;font-weight:800">{{ L.t88 }}</a>
+</sc-if>
+
+<!-- QUESTIONS -->
+<sc-if value="{{ isQuestions }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end">
+    <div style="flex:1 1 480px;min-width:0">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.questions }}</div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t89 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t90 }}</em></h1>
+      <p style="margin:0;color:var(--mid);max-width:620px;font-size:17px">{{ L.t91 }}</p>
+    </div>
+    <button type="button" onClick="{{ exportAnswers }}" style="font:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:11px 20px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;font-feature-settings:'liga'">data_object</span>{{ exportLabel }}</button>
+  </section>
+  <div role="tablist" aria-label="{{ L.t223 }}" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">
+    <sc-for list="{{ qTabs }}" as="g" hint-placeholder-count="6">
+      <button type="button" role="tab" aria-selected="{{ g.on }}" onClick="{{ g.pick }}" style="font:inherit;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:14.5px;padding:8px 15px;border-radius:999px;border:var(--bw) solid {{ g.border }};background:{{ g.bg }};color:var(--ink);cursor:pointer"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga'">{{ g.icon }}</span>{{ g.name }}<span style="font-size:12px;color:var(--mid);font-variant-numeric:tabular-nums">{{ g.count }}</span></button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ qg.hasGate }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:22px 24px;border-radius:24px;background:var(--note);color:var(--note-ink);margin-bottom:18px;transform:var(--tilt)">
+      <div style="font-family:Caveat,cursive;font-size:22px;line-height:1">{{ L.t93 }}</div>
+      <p style="font-weight:800;font-size:19px;margin:6px 0 12px">{{ qg.gateQ }}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ qg.gateOpts }}" as="o" hint-placeholder-count="3">
+          <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font:inherit;white-space:nowrap;font-weight:800;font-size:14.5px;padding:8px 18px;border-radius:999px;border:var(--bw) solid var(--edge);background:{{ o.bg }};color:{{ o.fg }};cursor:pointer">{{ o.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ qg.closed }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:30px;border-radius:24px;border:2px dashed var(--line2);text-align:center;color:var(--mid)"><span style="font-family:Caveat,cursive;font-size:26px">{{ L.t94 }}</span><br><span style="font-size:15px">{{ L.t95 }}</span></div>
+  </sc-if>
+  <sc-if value="{{ qg.opened }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ qg.qs }}" as="q" hint-placeholder-count="4">
+        <div style="padding:20px 22px;border-radius:24px;background:var(--surface);border:1.5px solid {{ q.border }};animation:var(--rise);animation-delay:{{ q.delay }}">
+          <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
+            <p style="flex:1 1 320px;margin:0;font-weight:800;font-size:18px;line-height:1.4">{{ q.t }}</p>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--sunk);color:var(--mid)">{{ q.id }}</span>
+          </div>
+          <sc-if value="{{ q.hasSource }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;padding:10px 14px;border-radius:14px;background:{{ q.srcBg }}">
+              <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;font-feature-settings:'liga';color:{{ q.srcD }}">{{ q.srcIcon }}</span>
+              <span style="font-size:13.5px;font-weight:800;white-space:nowrap">{{ q.srcLabel }}</span>
+              <span style="font-size:13.5px;color:var(--mid);flex:1 1 200px">{{ q.evidence }}</span>
+              <sc-if value="{{ q.needsConfirm }}" hint-placeholder-val="{{ false }}">
+                <button type="button" onClick="{{ q.confirm }}" style="font:inherit;font-size:13px;font-weight:800;padding:5px 14px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer">{{ L.t96 }}</button>
+                <button type="button" onClick="{{ q.change }}" style="font:inherit;font-size:13px;font-weight:800;padding:5px 14px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer">{{ L.t97 }}</button>
+              </sc-if>
+            </div>
+          </sc-if>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px">
+            <sc-if value="{{ q.isYn }}" hint-placeholder-val="{{ true }}">
+              <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+                <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font:inherit;white-space:nowrap;font-weight:800;font-size:14.5px;padding:8px 18px;border-radius:999px;border:var(--bw) solid {{ o.border }};background:{{ o.bg }};color:{{ o.fg }};cursor:pointer">{{ o.label }}</button>
+              </sc-for>
+            </sc-if>
+            <sc-if value="{{ q.isText }}" hint-placeholder-val="{{ false }}">
+              <input type="text" value="{{ q.textVal }}" onChange="{{ q.onText }}" aria-label="{{ q.t }}" placeholder="{{ L.t224 }}" style="font:inherit;flex:1 1 300px;min-width:0;padding:10px 16px;border-radius:14px;border:1.5px solid var(--line2);background:var(--bg);color:var(--ink)">
+              <button type="button" onClick="{{ q.idk }}" aria-pressed="{{ q.idkOn }}" style="font:inherit;white-space:nowrap;font-weight:800;font-size:14.5px;padding:8px 16px;border-radius:999px;border:var(--bw) solid {{ q.idkBorder }};background:{{ q.idkBg }};color:var(--ink);cursor:pointer">{{ L.t98 }}</button>
+            </sc-if>
+            <a href="{{ q.topicHref }}" style="margin-left:auto;font-size:13.5px;font-weight:700">{{ L.t99 }}</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+  <div style="display:flex;gap:10px;margin-top:22px">
+    <sc-if value="{{ qPrev.has }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ qPrev.go }}" style="font:inherit;font-weight:800;padding:10px 18px;border-radius:999px;border:1.5px solid var(--line2);background:transparent;color:var(--ink);cursor:pointer">← {{ qPrev.name }}</button></sc-if>
+    <sc-if value="{{ qNext.has }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ qNext.go }}" style="font:inherit;margin-left:auto;font-weight:800;padding:10px 20px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer;box-shadow:var(--btn-sh)">{{ qNext.name }} →</button></sc-if>
+  </div>
+</sc-if>
+
+<!-- CHECKLISTS -->
+<sc-if value="{{ isChecklists }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 26px;display:flex;gap:28px;flex-wrap:wrap;align-items:center">
+    <div style="flex:1 1 460px;min-width:0">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.checklists }}</div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t100 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t101 }}</em></h1>
+      <p style="margin:0;color:var(--mid);max-width:560px">{{ L.t102 }}</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px">
+      <div aria-hidden="true" style="width:124px;height:124px;border-radius:50%;background:{{ all.ring }};display:grid;place-items:center"><div style="width:94px;height:94px;border-radius:50%;background:var(--bg);display:grid;place-items:center;text-align:center;line-height:1.1"><span style="font-family:Fraunces,serif;font-weight:500;font-size:30px">{{ all.done }}</span><span style="font-size:12px;font-weight:800;color:var(--mid)">{{ L.t20 }} {{ all.total }}</span></div></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="button" onClick="{{ copyMd }}" style="font:inherit;font-weight:800;padding:10px 18px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer;box-shadow:var(--btn-sh)" style-hover="box-shadow:var(--btn-sh-h)">{{ copyLabel }}</button>
+        <button type="button" onClick="{{ printIt }}" class="noprint" style="font:inherit;font-weight:700;padding:8px 18px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer">{{ L.t103 }}</button>
+      </div>
+    </div>
+  </section>
+  <div role="group" aria-label="{{ L.t225 }}" class="noprint" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px">
+    <sc-for list="{{ pickChips }}" as="p" hint-placeholder-count="12">
+      <button type="button" onClick="{{ p.toggle }}" aria-pressed="{{ p.on }}" style="font:inherit;display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:14.5px;padding:7px 14px;border-radius:999px;border:1.5px solid {{ p.border }};background:{{ p.bg }};color:var(--ink);cursor:pointer"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga'">{{ p.mark }}</span>{{ p.title }}</button>
+    </sc-for>
+  </div>
+  <sc-if value="{{ noPicked }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:44px;border-radius:24px;border:2px dashed var(--line2);text-align:center;font-family:Caveat,cursive;font-size:28px;color:var(--soft)">{{ L.t104 }}</div>
+  </sc-if>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px">
+    <sc-for list="{{ pickedLists }}" as="Lx" hint-placeholder-count="2">
+      <div style="border-radius:24px;background:{{ Lx.tint }};padding:22px;box-shadow:var(--card-sh)">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+          <a href="{{ Lx.href }}" style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:23px;letter-spacing:-0.02em;color:var(--ink);text-decoration:none">{{ Lx.title }}</a>
+          <span style="font-weight:800;font-size:14px;font-variant-numeric:tabular-nums">{{ Lx.done }}/{{ Lx.total }}</span>
+        </div>
+        <div style="height:8px;border-radius:8px;background:var(--surface);overflow:hidden;margin:10px 0 14px"><div style="height:100%;width:{{ Lx.barW }};background:{{ Lx.accent }};transition:width .45s cubic-bezier(.34,1.56,.64,1)"></div></div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+          <sc-for list="{{ Lx.steps }}" as="s" hint-placeholder-count="5">
+            <li><label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:7px 10px;border-radius:12px;background:var(--surface)"><input type="checkbox" checked="{{ s.done }}" onChange="{{ s.toggle }}" style="width:20px;height:20px;margin:2px 0 0;accent-color:#3BAD82;flex:none"><span style="font-weight:700;font-size:15px;text-decoration:{{ s.strike }};color:{{ s.color }}">{{ s.t }}</span></label></li>
+          </sc-for>
+        </ul>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hasPicked }}" hint-placeholder-val="{{ false }}">
+    <button type="button" onClick="{{ resetTicks }}" class="noprint" style="font:inherit;margin-top:22px;font-weight:700;font-size:14px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line2);background:transparent;color:var(--mid);cursor:pointer">{{ resetLabel }}</button>
+  </sc-if>
+</sc-if>
+
+<!-- GUIDES -->
+<sc-if value="{{ isGuides }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.guides }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t105 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t106 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:620px;font-size:17px">{{ L.t107 }}</p>
+  </section>
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+    <div style="margin-bottom:30px">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:10px">✦ {{ g.name }}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px">
+        <sc-for list="{{ g.items }}" as="c" hint-placeholder-count="3">
+          <a href="{{ c.href }}" style="display:flex;flex-direction:column;gap:9px;padding:20px;border-radius:24px;background:{{ c.tint }};text-decoration:none;color:var(--ink);border:2px solid transparent;transition:transform .25s cubic-bezier(.34,1.56,.64,1),border-color .15s;animation:var(--rise);animation-delay:{{ c.delay }};box-shadow:var(--card-sh)" style-hover="transform:translateY(-4px);border-color:var(--edge)">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span aria-hidden="true" style="width:44px;height:44px;border-radius:14px;background:var(--surface);display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:25px;line-height:1;font-feature-settings:'liga';color:{{ c.accent }}">{{ c.icon }}</span>
+              <span style="font-size:13px;font-weight:800;color:var(--mid)">{{ c.progressLabel }}</span>
+            </div>
+            <div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:22px;line-height:1.15">{{ c.title }}</div>
+            <div style="font-size:14.5px;color:var(--mid);line-height:1.5">{{ c.line }}</div>
+            <div style="height:6px;border-radius:6px;background:var(--sunk);overflow:hidden;margin-top:auto"><div style="height:100%;width:{{ c.barW }};background:{{ c.accent }};border-radius:6px"></div></div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </sc-for>
+</sc-if>
+
+<!-- TOPIC -->
+<sc-if value="{{ isTopic }}" hint-placeholder-val="{{ false }}">
+  <section style="margin:28px 0 0;padding:38px clamp(20px,4vw,46px);border-radius:32px;background:{{ t.tint }};box-shadow:var(--card-sh)">
+    <a href="#/guides" style="font-weight:700;font-size:14px;text-decoration:none;color:var(--mid)">← {{ L.guides }}</a>
+    <div style="display:flex;gap:22px;align-items:flex-start;margin-top:18px;flex-wrap:wrap">
+      <span aria-hidden="true" style="width:66px;height:66px;border-radius:20px;background:var(--surface);border:var(--bw) solid var(--edge);display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:34px;line-height:1;font-feature-settings:'liga';color:{{ t.accent }};box-shadow:var(--btn-sh)">{{ t.icon }}</span>
+      <div style="flex:1 1 400px;min-width:0">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid)">✦ {{ t.group }}</div>
+        <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(34px,5vw,58px);line-height:1.03;margin:6px 0 10px;text-wrap:balance">{{ t.title }}</h1>
+        <p style="font-size:18px;margin:0;color:var(--mid);max-width:640px">{{ t.line }}</p>
+        <sc-if value="{{ t.isOverview }}" hint-placeholder-val="{{ false }}"><div style="display:inline-flex;gap:6px;align-items:center;margin-top:12px;padding:5px 12px;border-radius:999px;background:var(--surface);font-size:13px;font-weight:800"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;font-feature-settings:'liga'">info</span>{{ t.overviewLabel }}</div></sc-if>
+      </div>
+    </div>
+    <div role="group" aria-label="{{ L.t226 }}" class="noprint" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:24px;align-items:center">
+      <span style="font-weight:800;font-size:13px;margin-right:6px;white-space:nowrap">{{ L.t109 }}</span>
+      <sc-for list="{{ depthOpts }}" as="o" hint-placeholder-count="3">
+        <button type="button" onClick="{{ o.pick }}" aria-pressed="{{ o.on }}" style="font:inherit;white-space:nowrap;font-weight:800;font-size:14px;padding:8px 16px;border-radius:999px;border:var(--bw) solid var(--edge);background:{{ o.bg }};color:{{ o.fg }};cursor:pointer">{{ o.label }} <span style="font-weight:600;opacity:.8">· {{ o.sub }}</span></button>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display:flex;flex-wrap:wrap;gap:36px;margin-top:34px;align-items:flex-start">
+    <div style="flex:1 1 580px;min-width:0;display:flex;flex-direction:column;gap:46px">
+
+      <section id="sec-problem" style="scroll-margin-top:90px">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink-d)">✦ {{ L.problem }}</div>
+        <p style="font-size:19.5px;line-height:1.7;margin:10px 0 0;text-wrap:pretty">{{ t.minute }}</p>
+      </section>
+
+      <section id="sec-fix" style="scroll-margin-top:90px">
+        <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint-d)">✦ {{ L.solution }}</div>
+        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:6px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:34px;margin:0">{{ L.t110 }}</h2>
+          <span style="font-weight:800;color:var(--mid);font-variant-numeric:tabular-nums">{{ tp.done }} {{ L.t20 }} {{ tp.total }} {{ L.t111 }}</span>
+        </div>
+        <div style="height:10px;border-radius:10px;background:var(--sunk);overflow:hidden;margin:14px 0 20px"><div style="height:100%;width:{{ tp.barW }};background:{{ t.accent }};border-radius:10px;transition:width .45s cubic-bezier(.34,1.56,.64,1)"></div></div>
+        <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
+            <li style="display:flex;gap:16px;padding:18px 20px;border-radius:22px;background:{{ s.bg }};border:1.5px solid var(--line);transition:background .2s">
+              <span aria-hidden="true" style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:400;font-size:42px;line-height:.95;letter-spacing:-0.05em;color:{{ s.numColor }};min-width:46px">{{ s.n }}</span>
+              <div style="flex:1;min-width:0">
+                <label style="display:flex;gap:12px;align-items:flex-start;cursor:pointer">
+                  <input type="checkbox" checked="{{ s.done }}" onChange="{{ s.toggle }}" style="width:22px;height:22px;margin:3px 0 0;accent-color:#3BAD82;flex:none;cursor:pointer">
+                  <span style="font-weight:800;font-size:17.5px;line-height:1.4;text-decoration:{{ s.strike }}">{{ s.t }}</span>
+                </label>
+                <sc-if value="{{ s.showDo }}" hint-placeholder-val="{{ true }}"><p style="margin:6px 0 0 34px;color:var(--mid)">{{ s.d }}</p></sc-if>
+                <details open="{{ s.openVerify }}" style="margin:8px 0 0 34px">
+                  <summary style="display:inline-flex;align-items:center;gap:4px;font-weight:800;font-size:14px;color:var(--link)"><span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;font-feature-settings:'liga';transition:transform .15s">chevron_right</span>{{ L.t112 }}</summary>
+                  <p style="margin:6px 0 0;padding:10px 14px;border-radius:14px;background:var(--sunk);font-size:15px">{{ s.v }}</p>
+                </details>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+
+      <section id="sec-try" style="scroll-margin-top:90px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;padding:22px 24px;border-radius:24px;border:2px dashed var(--line2)">
+        <div style="flex:1 1 300px">
+          <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lav-d)">✦ {{ L.tryit }}</div>
+          <p style="margin:6px 0 0;font-size:17px;font-weight:700">{{ tryit.text }}</p>
+        </div>
+        <a href="{{ tryit.href }}" style="display:inline-flex;align-items:center;gap:8px;font-weight:800;padding:11px 20px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);text-decoration:none;box-shadow:var(--btn-sh);transition:box-shadow .15s,transform .15s" style-hover="box-shadow:var(--btn-sh-h);transform:translate(-2px,-2px)">{{ tryit.label }} →</a>
+      </section>
+
+      <sc-if value="{{ lvl2 }}" hint-placeholder-val="{{ true }}">
+        <section id="sec-facts" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 6px">{{ L.facts }}</h2>
+          <p style="margin:0 0 16px;color:var(--mid)">{{ L.t113 }}</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+            <sc-for list="{{ t.facts }}" as="f" hint-placeholder-count="4">
+              <div style="padding:18px;border-radius:22px;border:2px dashed var(--line2);background:var(--surface)">
+                <div style="display:flex;gap:8px;align-items:flex-start"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1.2;font-feature-settings:'liga';color:var(--lav-d)">help</span><span style="font-weight:800;line-height:1.4">{{ f.f }}</span></div>
+                <p style="margin:8px 0 0;font-size:15px;color:var(--mid)">{{ f.w }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section id="sec-traps" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 16px">{{ L.traps }}</h2>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ t.traps }}" as="x" hint-placeholder-count="3">
+              <li style="display:flex;gap:12px;align-items:flex-start;padding:14px 18px;border-radius:18px;background:var(--pink);box-shadow:var(--card-sh)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1.3;font-feature-settings:'liga';color:var(--pink-d)">do_not_disturb_on</span><span>{{ x }}</span></li>
+            </sc-for>
+          </ul>
+        </section>
+
+        <sc-if value="{{ showWorld }}" hint-placeholder-val="{{ true }}">
+          <section id="sec-world" style="scroll-margin-top:90px">
+            <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px">
+              <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0">{{ L.outside }}</h2>
+              <a href="#/world" style="font-weight:700;font-size:14px">{{ L.t116 }}</a>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+              <div style="padding:20px;border-radius:22px;background:var(--teal);box-shadow:var(--card-sh)"><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span style="font-weight:800;font-size:13px;padding:3px 10px;border-radius:999px;background:var(--surface);border:1.5px solid var(--edge)">UK</span><span style="font-size:13px;font-weight:700;color:var(--mid)">{{ L.t117 }}</span></div><p style="margin:0">{{ tw.uk }}</p></div>
+              <div style="padding:20px;border-radius:22px;background:var(--peach);box-shadow:var(--card-sh)"><div style="display:flex;gap:10px;align-items:center;margin-bottom:8px"><span style="font-weight:800;font-size:13px;padding:3px 10px;border-radius:999px;background:var(--surface);border:1.5px solid var(--edge)">US</span><span style="font-size:13px;font-weight:700;color:var(--mid)">{{ L.t117 }}</span></div><p style="margin:0">{{ tw.us }}</p></div>
+            </div>
+          </section>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ lvl3 }}" hint-placeholder-val="{{ false }}">
+        <section id="sec-rules" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 16px">{{ L.rules }}</h2>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ t.deeper }}" as="r" hint-placeholder-count="3">
+              <details style="border-radius:20px;border:1.5px solid var(--line);background:var(--surface);padding:16px 20px">
+                <summary style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px"><span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga';transition:transform .15s;color:var(--lav-d)">chevron_right</span>{{ r.h }}</summary>
+                <p style="margin:10px 0 8px 30px">{{ r.b }}</p>
+                <div style="margin-left:30px;display:inline-flex;gap:6px;align-items:flex-start;font-size:13.5px;font-weight:700;color:var(--mid);background:var(--sunk);padding:6px 12px;border-radius:12px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1.3;font-feature-settings:'liga'">menu_book</span>{{ r.src }}</div>
+              </details>
+            </sc-for>
+          </div>
+        </section>
+
+        <section id="sec-agent" style="scroll-margin-top:90px;border-radius:24px;background:var(--code-bg);color:var(--code-ink);padding:24px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+            <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:#ffc24a">smart_toy</span>
+            <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.02em;font-size:26px;margin:0;flex:1">{{ L.agentList }}</h2>
+            <button type="button" onClick="{{ copyAgent }}" style="font:inherit;font-size:12.5px;font-weight:800;padding:6px 14px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer">{{ copyAgentLabel }}</button>
+          </div>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6">
+            <sc-for list="{{ agentItems }}" as="a" hint-placeholder-count="5"><li style="display:flex;gap:10px"><span style="color:#ffc24a;flex:none">- [ ]</span><span>{{ a }}</span></li></sc-for>
+          </ul>
+        </section>
+
+        <section id="sec-ask" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 6px">{{ L.ask }}</h2>
+          <p style="margin:0 0 16px;color:var(--mid)">{{ L.t118 }} <a href="#/specialists">{{ L.t119 }}</a>.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+            <sc-if value="{{ hasCounsel }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:20px;border-radius:22px;background:var(--lav);box-shadow:var(--card-sh)"><div style="display:flex;gap:8px;align-items:center;font-weight:800;margin-bottom:10px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga'">gavel</span>{{ L.t121 }}</div>
+                <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px"><sc-for list="{{ t.ask.counsel }}" as="q" hint-placeholder-count="2"><li>{{ q }}</li></sc-for></ol></div>
+            </sc-if>
+            <sc-if value="{{ hasAccountant }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:20px;border-radius:22px;background:var(--peach);box-shadow:var(--card-sh)"><div style="display:flex;gap:8px;align-items:center;font-weight:800;margin-bottom:10px"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga'">calculate</span>{{ L.t123 }}</div>
+                <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px"><sc-for list="{{ t.ask.accountant }}" as="q" hint-placeholder-count="2"><li>{{ q }}</li></sc-for></ol></div>
+            </sc-if>
+          </div>
+        </section>
+
+        <section id="sec-module" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 6px">{{ L.t124 }}</h2>
+          <p style="margin:0 0 16px;color:var(--mid)">{{ L.t125 }}</p>
+          <sc-if value="{{ modLoading }}" hint-placeholder-val="{{ false }}"><div style="font-family:Caveat,cursive;font-size:24px;color:var(--soft)">{{ L.t126 }}</div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ mod.sections }}" as="S" hint-placeholder-count="0">
+            <details style="border-radius:20px;border:1.5px solid var(--line);background:var(--surface);padding:16px 20px">
+              <summary style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:17px"><span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga';transition:transform .15s;color:var(--lav-d)">chevron_right</span><span style="flex:1">{{ S.h }}</span><span style="font-size:12.5px;font-weight:800;color:var(--soft);white-space:nowrap">{{ S.count }}</span></summary>
+              <div style="margin:12px 0 0 30px">
+            <sc-for list="{{ S.lead }}" as="b" hint-placeholder-count="0">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 10px;text-wrap:pretty"><strong>{{ b.b }}</strong> {{ b.t }}<sc-for list="{{ b.links }}" as="lk" hint-placeholder-count="0"> <a href="{{ lk.u }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;white-space:nowrap">{{ lk.t }} ↗</a></sc-for></p></sc-if>
+              <sc-if value="{{ b.isLi }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:9px;margin:0 0 7px;padding-left:{{ b.pad }}"><span style="flex:none;min-width:16px;font-weight:800;color:var(--lav-d)">{{ b.mark }}</span><span style="min-width:0;overflow-wrap:anywhere"><strong>{{ b.b }}</strong> {{ b.t }}<sc-for list="{{ b.links }}" as="lk" hint-placeholder-count="0"> <a href="{{ lk.u }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;white-space:nowrap">{{ lk.t }} ↗</a></sc-for></span></div></sc-if>
+              <sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}"><pre style="margin:4px 0 12px;padding:14px 16px;border-radius:14px;background:var(--code-bg);color:var(--code-ink);font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.65;overflow-x:auto"><code>{{ b.t }}</code></pre></sc-if>
+              <sc-if value="{{ b.isQ }}" hint-placeholder-val="{{ false }}"><div style="margin:4px 0 12px;padding:10px 14px;border-radius:12px;background:var(--sunk);font-family:'JetBrains Mono',monospace;font-size:13px">{{ b.t }}</div></sc-if>
+              <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><div style="margin:12px 0 6px;font-weight:800">{{ b.t }}</div></sc-if>
+              <sc-if value="{{ b.isTbl }}" hint-placeholder-val="{{ false }}"><div style="overflow-x:auto;margin:4px 0 12px;border-radius:14px;border:1.5px solid var(--line)"><div style="min-width:{{ b.minW }}"><sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="0"><div style="display:grid;grid-template-columns:{{ b.cols }};gap:12px;padding:9px 12px;font-size:14px;font-weight:{{ r.w }};background:{{ r.bg }};border-top:1px solid var(--line)"><sc-for list="{{ r.cells }}" as="cl" hint-placeholder-count="0"><span style="min-width:0;overflow-wrap:anywhere">{{ cl.t }}<sc-if value="{{ cl.hasU }}" hint-placeholder-val="{{ false }}"> <a href="{{ cl.u }}" target="_blank" rel="noopener" aria-label="{{ L.t227 }}" style="font-weight:800;text-decoration:none">↗</a></sc-if></span></sc-for></div></sc-for></div></div></sc-if>
+            </sc-for>
+                <sc-for list="{{ S.children }}" as="Ch" hint-placeholder-count="0">
+                  <details style="margin:8px 0 0;border-radius:16px;background:var(--sunk);padding:12px 16px">
+                    <summary style="display:flex;align-items:flex-start;gap:6px;font-weight:800;font-size:15.5px;line-height:1.4"><span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga';transition:transform .15s">chevron_right</span>{{ Ch.h }}</summary>
+                    <div style="margin:10px 0 0 26px;font-size:15px">
+            <sc-for list="{{ Ch.blocks }}" as="b" hint-placeholder-count="0">
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 10px;text-wrap:pretty"><strong>{{ b.b }}</strong> {{ b.t }}<sc-for list="{{ b.links }}" as="lk" hint-placeholder-count="0"> <a href="{{ lk.u }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;white-space:nowrap">{{ lk.t }} ↗</a></sc-for></p></sc-if>
+              <sc-if value="{{ b.isLi }}" hint-placeholder-val="{{ false }}"><div style="display:flex;gap:9px;margin:0 0 7px;padding-left:{{ b.pad }}"><span style="flex:none;min-width:16px;font-weight:800;color:var(--lav-d)">{{ b.mark }}</span><span style="min-width:0;overflow-wrap:anywhere"><strong>{{ b.b }}</strong> {{ b.t }}<sc-for list="{{ b.links }}" as="lk" hint-placeholder-count="0"> <a href="{{ lk.u }}" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;white-space:nowrap">{{ lk.t }} ↗</a></sc-for></span></div></sc-if>
+              <sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}"><pre style="margin:4px 0 12px;padding:14px 16px;border-radius:14px;background:var(--code-bg);color:var(--code-ink);font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.65;overflow-x:auto"><code>{{ b.t }}</code></pre></sc-if>
+              <sc-if value="{{ b.isQ }}" hint-placeholder-val="{{ false }}"><div style="margin:4px 0 12px;padding:10px 14px;border-radius:12px;background:var(--sunk);font-family:'JetBrains Mono',monospace;font-size:13px">{{ b.t }}</div></sc-if>
+              <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><div style="margin:12px 0 6px;font-weight:800">{{ b.t }}</div></sc-if>
+              <sc-if value="{{ b.isTbl }}" hint-placeholder-val="{{ false }}"><div style="overflow-x:auto;margin:4px 0 12px;border-radius:14px;border:1.5px solid var(--line)"><div style="min-width:{{ b.minW }}"><sc-for list="{{ b.rows }}" as="r" hint-placeholder-count="0"><div style="display:grid;grid-template-columns:{{ b.cols }};gap:12px;padding:9px 12px;font-size:14px;font-weight:{{ r.w }};background:{{ r.bg }};border-top:1px solid var(--line)"><sc-for list="{{ r.cells }}" as="cl" hint-placeholder-count="0"><span style="min-width:0;overflow-wrap:anywhere">{{ cl.t }}<sc-if value="{{ cl.hasU }}" hint-placeholder-val="{{ false }}"> <a href="{{ cl.u }}" target="_blank" rel="noopener" aria-label="{{ L.t227 }}" style="font-weight:800;text-decoration:none">↗</a></sc-if></span></sc-for></div></sc-for></div></div></sc-if>
+            </sc-for>
+                    </div>
+                  </details>
+                </sc-for>
+              </div>
+            </details>
+          </sc-for>
+          </div>
+        </section>
+
+        <section id="sec-research" style="scroll-margin-top:90px">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:30px;margin:0 0 6px">{{ L.research }}</h2>
+          <p style="margin:0 0 14px;color:var(--mid)">{{ L.t127 }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ related }}" as="rf" hint-placeholder-count="4">
+              <a href="{{ rf.href }}" style="display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);text-decoration:none;color:var(--ink);font-weight:700;font-size:14.5px" style-hover="background:var(--lav)"><span style="font-size:11px;font-weight:800;padding:2px 7px;border-radius:999px;background:{{ rf.badgeBg }}">{{ rf.scope }}</span>{{ rf.name }}<span style="color:var(--soft);font-weight:700">{{ rf.count }}</span></a>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ notDeep }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ goDeeper }}" class="noprint" style="font:inherit;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;border:2px dashed var(--line2);background:transparent;font-weight:800;color:var(--ink);cursor:pointer" style-hover="border-color:var(--edge)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga'">unfold_more</span>{{ deeperLabel }}</button>
+      </sc-if>
+
+      <nav aria-label="{{ L.t228 }}" class="noprint" style="display:flex;gap:12px;flex-wrap:wrap;border-top:1.5px solid var(--line);padding-top:24px">
+        <a href="{{ prevT.href }}" style="flex:1 1 220px;padding:16px 20px;border-radius:20px;background:var(--surface);border:1.5px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--edge)"><div style="font-size:13px;font-weight:700;color:var(--soft)">{{ L.t129 }}</div><div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:20px">{{ prevT.title }}</div></a>
+        <a href="{{ nextT.href }}" style="flex:1 1 220px;padding:16px 20px;border-radius:20px;background:var(--surface);border:1.5px solid var(--line);text-decoration:none;color:var(--ink);text-align:right" style-hover="border-color:var(--edge)"><div style="font-size:13px;font-weight:700;color:var(--soft)">{{ L.t76 }}</div><div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:20px">{{ nextT.title }}</div></a>
+      </nav>
+    </div>
+
+    <aside style="flex:0 1 290px;min-width:240px;position:sticky;top:90px;display:flex;flex-direction:column;gap:18px">
+      <div style="background:var(--note);color:var(--note-ink);padding:22px 22px 18px;border-radius:6px 22px 22px 22px;transform:var(--tilt);box-shadow:3px 4px 0 rgba(26,23,20,0.12)">
+        <div style="font-family:Caveat,cursive;font-size:27px;line-height:1">{{ L.t130 }}</div>
+        <ul style="margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ t.remember }}" as="m" hint-placeholder-count="3"><li style="display:flex;gap:8px;font-weight:800;line-height:1.4"><span aria-hidden="true">✦</span><span>{{ m }}</span></li></sc-for>
+        </ul>
+      </div>
+      <div style="padding:16px 18px;border-radius:22px;border:1.5px solid var(--line);background:var(--surface)">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
+          <div aria-hidden="true" style="width:58px;height:58px;border-radius:50%;background:{{ tp.ring }};display:grid;place-items:center;flex:none"><div style="width:42px;height:42px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:Fraunces,serif;font-weight:500;font-size:14px">{{ tp.pct }}</div></div>
+          <div style="font-weight:800;line-height:1.3">{{ L.onPage }}<br><span style="font-size:13px;font-weight:700;color:var(--soft)">{{ L.t131 }}</span></div>
+        </div>
+        <sc-for list="{{ toc }}" as="x" hint-placeholder-count="5">
+          <button type="button" onClick="{{ x.go }}" style="font:inherit;display:flex;width:100%;align-items:center;gap:8px;padding:6px 8px;border:0;border-radius:10px;background:transparent;color:var(--ink);font-weight:700;font-size:14.5px;cursor:pointer;text-align:left" style-hover="background:var(--sunk)"><span style="width:6px;height:6px;border-radius:50%;background:{{ x.dot }}"></span><span style="flex:1">{{ x.label }}</span><span style="font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums">{{ x.count }}</span></button>
+        </sc-for>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- BASICS -->
+<sc-if value="{{ isBasics }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 28px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.basics }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px;max-width:860px">{{ L.t132 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t133 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:600px;font-size:17px">{{ L.t134 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+    <sc-for list="{{ basics }}" as="b" hint-placeholder-count="8">
+      <div style="border-radius:26px;padding:24px;background:{{ b.tint }};display:flex;flex-direction:column;gap:10px;animation:var(--rise);animation-delay:{{ b.delay }};box-shadow:var(--card-sh)">
+        <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:400;font-size:58px;line-height:.85;letter-spacing:-0.05em;color:{{ b.accent }}">{{ b.n }}</span>
+        <div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;line-height:1.15">{{ b.h }}</div>
+        <p style="margin:0;font-size:15.5px;color:var(--mid)">{{ b.b }}</p>
+        <div style="margin-top:auto;padding-top:6px;font-family:Caveat,cursive;font-size:25px;line-height:1.1">→ {{ b.hook }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <section style="margin-top:64px">
+    <div style="display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px">
+      <div style="flex:1 1 300px">
+        <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.03em;font-size:38px;margin:0">{{ L.t135 }}</h2>
+        <p style="margin:4px 0 0;color:var(--mid)">{{ L.t136 }}</p>
+      </div>
+      <label style="flex:0 1 320px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--surface)">
+        <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;font-feature-settings:'liga'">search</span>
+        <input type="search" value="{{ gq }}" onInput="{{ setGq }}" placeholder="{{ L.t229 }}" aria-label="{{ L.t229 }}" style="font:inherit;border:0;outline:0;background:transparent;flex:1;min-width:0;color:var(--ink)">
+      </label>
+    </div>
+    <dl style="margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px">
+      <sc-for list="{{ gloss }}" as="g" hint-placeholder-count="10">
+        <div style="padding:14px 18px;border-radius:18px;background:var(--surface);border:1.5px solid var(--line)"><dt style="font-weight:800">{{ g.t }}</dt><dd style="margin:2px 0 0;font-size:15px;color:var(--mid)">{{ g.d }}</dd></div>
+      </sc-for>
+    </dl>
+  </section>
+</sc-if>
+
+<!-- DECIDE -->
+<sc-if value="{{ isDecide }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 28px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.decide }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t138 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t139 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:600px;font-size:17px">{{ L.t140 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;align-items:start">
+    <sc-for list="{{ deciders }}" as="D" hint-placeholder-count="3">
+      <div style="border-radius:26px;border:var(--bw) solid var(--edge);background:var(--surface);padding:24px;box-shadow:var(--btn-sh)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <span aria-hidden="true" style="width:42px;height:42px;border-radius:14px;background:{{ D.tint }};display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:{{ D.accent }};box-shadow:var(--card-sh)">{{ D.icon }}</span>
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin:0;flex:1;line-height:1.15">{{ D.title }}</h2>
+        </div>
+        <sc-for list="{{ D.trail }}" as="h" hint-placeholder-count="0">
+          <div style="display:flex;gap:8px;align-items:flex-start;font-size:14px;margin-bottom:8px;color:var(--mid)"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1.3;font-feature-settings:'liga';color:var(--s-not-d)">check_circle</span><span>{{ h.q }} <strong style="color:var(--ink)">{{ h.a }}</strong></span></div>
+        </sc-for>
+        <sc-if value="{{ D.asking }}" hint-placeholder-val="{{ true }}">
+          <p style="font-weight:800;font-size:18px;line-height:1.4;margin:6px 0 14px">{{ D.q }}</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ D.opts }}" as="o" hint-placeholder-count="2">
+              <button type="button" onClick="{{ o.pick }}" style="font:inherit;text-align:left;font-weight:700;padding:12px 16px;border-radius:16px;border:1.5px solid var(--edge);background:{{ D.tint }};cursor:pointer;color:var(--ink);transition:transform .15s;box-shadow:var(--card-sh)" style-hover="transform:translateX(4px)">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ D.done }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="margin-top:10px;padding:18px;border-radius:20px;background:{{ D.resBg }}">
+            <div style="display:flex;gap:8px;align-items:center"><span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:{{ D.resD }}">{{ D.resIcon }}</span><span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em;line-height:1.2">{{ D.resH }}</span></div>
+            <p style="margin:8px 0 12px">{{ D.resB }}</p>
+            <a href="{{ D.resHref }}" style="font-weight:800">{{ L.t142 }} {{ D.resTopic }} →</a>
+          </div>
+        </sc-if>
+        <sc-if value="{{ D.started }}" hint-placeholder-val="{{ false }}">
+          <button type="button" onClick="{{ D.restart }}" style="font:inherit;margin-top:14px;font-weight:700;font-size:14px;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line2);background:transparent;cursor:pointer;color:var(--mid)">{{ L.t143 }}</button>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- DATES -->
+<sc-if value="{{ isDates }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 28px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.dates }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t144 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t145 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:600px;font-size:17px">{{ L.t146 }}</p>
+  </section>
+  <figure style="margin:0 0 40px;padding:26px 28px 16px;border-radius:26px;background:var(--surface);border:1.5px solid var(--line);overflow-x:auto">
+    <figcaption style="font-weight:800;font-size:13px;color:var(--soft);letter-spacing:.1em;text-transform:uppercase">{{ L.t147 }}</figcaption>
+    <div style="position:relative;height:150px;min-width:560px">
+      <div style="position:absolute;left:0;right:0;top:84px;height:4px;border-radius:4px;background:var(--line)"></div>
+      <div style="position:absolute;left:0;top:84px;height:4px;border-radius:4px;background:var(--ink);width:{{ todayLeft }}"></div>
+      <sc-for list="{{ yearTicks }}" as="y" hint-placeholder-count="3">
+        <div style="position:absolute;top:98px;left:{{ y.left }};transform:translateX(-50%);font-size:12px;font-weight:800;color:var(--soft)"><div style="width:1.5px;height:8px;background:var(--line2);margin:0 auto 4px"></div>{{ y.label }}</div>
+      </sc-for>
+      <sc-for list="{{ dates }}" as="dd" hint-placeholder-count="8">
+        <div title="{{ dd.d }} · {{ dd.h }}" style="position:absolute;left:{{ dd.left }};top:{{ dd.top }};transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:3px">
+          <span style="font-size:11px;font-weight:800;white-space:nowrap;padding:1px 7px;border-radius:999px;background:{{ dd.bg }}">{{ dd.tag }}</span>
+          <span style="width:2px;height:{{ dd.stem }};background:var(--line2)"></span>
+          <span style="width:13px;height:13px;border-radius:50%;background:{{ dd.dot }};border:var(--bw) solid var(--edge)"></span>
+        </div>
+      </sc-for>
+      <div style="position:absolute;left:{{ todayLeft }};top:118px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">
+        <span style="width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:9px solid var(--pink-d)"></span>
+        <span style="font-family:Caveat,cursive;font-size:20px;line-height:1;color:var(--pink-d)">{{ L.t148 }}</span>
+      </div>
+    </div>
+  </figure>
+  <ol style="list-style:none;margin:0;padding:0 0 0 30px;border-left:3px solid var(--line);display:flex;flex-direction:column;gap:16px">
+    <sc-for list="{{ dates }}" as="dd" hint-placeholder-count="8">
+      <li style="position:relative;padding:18px 22px;border-radius:22px;background:{{ dd.bg }};opacity:{{ dd.opacity }}">
+        <span aria-hidden="true" style="position:absolute;left:-42px;top:24px;width:18px;height:18px;border-radius:50%;background:{{ dd.dot }};border:var(--bw) solid var(--edge)"></span>
+        <div style="display:flex;gap:12px;align-items:baseline;flex-wrap:wrap">
+          <span style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em">{{ dd.d }}</span>
+          <span style="font-size:12px;font-weight:800;padding:2px 10px;border-radius:999px;background:var(--surface);border:1.5px solid var(--edge)">{{ dd.tag }}</span>
+          <span style="margin-left:auto;font-family:Caveat,cursive;font-size:23px">{{ dd.when }}</span>
+        </div>
+        <div style="font-weight:800;font-size:18px;margin-top:4px">{{ dd.h }}</div>
+        <p style="margin:4px 0 0;color:var(--mid)">{{ dd.b }}</p>
+      </li>
+    </sc-for>
+  </ol>
+</sc-if>
+
+<!-- WORLD -->
+<sc-if value="{{ isWorld }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 28px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.world }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px;max-width:900px">{{ L.t149 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t150 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:660px;font-size:17px">{{ L.t151 }}</p>
+  </section>
+  <figure style="margin:0 0 40px;padding:24px;border-radius:26px;background:var(--surface);border:1.5px solid var(--line);overflow-x:auto">
+    <figcaption style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin-bottom:6px">{{ L.t152 }}</figcaption>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:700;margin-bottom:16px;color:var(--mid)">
+      <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:4px;background:#A8E6CF"></span>{{ L.t153 }}</span>
+      <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:4px;background:#F7C59F"></span>{{ L.t117 }}</span>
+      <span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:14px;border-radius:4px;background:#C5B8F0"></span>{{ L.t154 }}</span>
+      <span style="display:flex;gap:6px;align-items:center;white-space:nowrap"><span style="width:14px;height:14px;border-radius:4px;background:var(--sunk);border:1px solid var(--line2)"></span>{{ L.t155 }}</span>
+    </div>
+    <div role="table" aria-label="{{ L.t230 }}" style="display:grid;grid-template-columns:minmax(170px,1.6fr) repeat(4,minmax(60px,1fr));gap:6px;min-width:500px">
+      <div role="row" style="display:contents"><span role="columnheader"></span><sc-for list="{{ matrixCols }}" as="mc" hint-placeholder-count="4"><span role="columnheader" style="text-align:center;font-weight:800;font-size:14px">{{ mc }}</span></sc-for></div>
+      <sc-for list="{{ matrix }}" as="mr" hint-placeholder-count="9">
+        <div role="row" style="display:contents">
+          <span role="rowheader" style="font-weight:700;font-size:15px;padding:8px 0">{{ mr.t }}</span>
+          <sc-for list="{{ mr.cells }}" as="cell" hint-placeholder-count="4"><span role="cell" title="{{ cell.label }}" style="border-radius:10px;background:{{ cell.bg }};border:{{ cell.border }};display:grid;place-items:center;font-size:11.5px;font-weight:800;color:#1A1714;min-height:36px">{{ cell.short }}</span></sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </figure>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px">
+    <sc-for list="{{ regions }}" as="R" hint-placeholder-count="5">
+      <div style="border-radius:26px;padding:24px;background:{{ R.tint }};box-shadow:var(--card-sh)">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+          <span style="width:48px;height:48px;border-radius:50%;background:var(--surface);border:var(--bw) solid var(--edge);display:grid;place-items:center;font-weight:800;font-size:15px">{{ R.flag }}</span>
+          <div style="flex:1"><div style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;line-height:1.1">{{ R.name }}</div><div style="font-size:13px;font-weight:700;color:var(--mid)">{{ R.depth }} · {{ R.how }}</div></div>
+        </div>
+        <ul style="margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ R.points }}" as="pt" hint-placeholder-count="4"><li style="display:flex;gap:8px;font-size:15.5px;line-height:1.5"><span aria-hidden="true" style="flex:none;color:{{ R.accent }}">✦</span><span>{{ pt }}</span></li></sc-for>
+        </ul>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- LIBRARY -->
+<sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ libIndex }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:44px 0 26px">
+      <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.library }}</div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t156 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t157 }}</em></h1>
+      <p style="margin:0;color:var(--mid);max-width:660px;font-size:17px">{{ L.t158 }}</p>
+    </section>
+    <sc-if value="{{ rulesLoading }}" hint-placeholder-val="{{ false }}"><div style="padding:60px 0;text-align:center;font-family:Caveat,cursive;font-size:26px;color:var(--soft)">{{ L.t159 }}</div></sc-if>
+    <sc-if value="{{ rulesReady }}" hint-placeholder-val="{{ false }}">
+      <label style="display:flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--surface);max-width:580px;margin-bottom:24px">
+        <span aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;font-feature-settings:'liga'">search</span>
+        <input type="search" value="{{ lq }}" onInput="{{ setLq }}" placeholder="{{ L.t231 }}" aria-label="{{ L.t232 }}" style="font:inherit;border:0;outline:0;background:transparent;flex:1;min-width:0;color:var(--ink)">
+      </label>
+      <sc-if value="{{ searching }}" hint-placeholder-val="{{ false }}">
+        <p style="font-weight:800;margin:0 0 12px">{{ searchLabel }}</p>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:40px">
+          <sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+            <a href="{{ r.href }}" style="display:block;padding:16px 20px;border-radius:20px;background:var(--surface);border:1.5px solid var(--line);text-decoration:none;color:var(--ink)" style-hover="border-color:var(--edge)">
+              <div style="font-size:12.5px;font-weight:800;color:var(--link)">{{ r.fam }} · <span style="font-family:'JetBrains Mono',monospace;font-weight:600">{{ r.id }}</span></div>
+              <div style="font-weight:800;margin:2px 0">{{ r.q }}</div>
+              <div style="font-size:15px;color:var(--mid)">{{ r.p }}</div>
+            </a>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSearching }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <figure style="flex:2 1 520px;margin:0;padding:24px;border-radius:26px;background:var(--surface);border:1.5px solid var(--line)">
+            <figcaption style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em;margin-bottom:14px">{{ L.t160 }}</figcaption>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <sc-for list="{{ fams }}" as="f" hint-placeholder-count="12">
+                <a href="{{ f.href }}" style="display:grid;grid-template-columns:minmax(140px,230px) minmax(0,1fr) 28px;gap:10px;align-items:center;text-decoration:none;color:var(--ink);padding:4px 8px;border-radius:10px" style-hover="background:var(--sunk)">
+                  <span style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:999px;background:{{ f.badgeBg }};color:#1A1714;margin-right:6px">{{ f.scope }}</span>{{ f.name }}</span>
+                  <span style="height:14px;border-radius:7px;background:var(--sunk);overflow:hidden"><span style="display:block;height:100%;width:{{ f.barW }};background:{{ f.bar }};border-radius:7px"></span></span>
+                  <span style="font-size:13px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums">{{ f.count }}</span>
+                </a>
+              </sc-for>
+            </div>
+          </figure>
+          <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:18px">
+            <figure style="margin:0;padding:24px;border-radius:26px;background:var(--surface);border:1.5px solid var(--line)">
+              <figcaption style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em;margin-bottom:14px">{{ L.t161 }}</figcaption>
+              <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+                <div aria-hidden="true" style="width:120px;height:120px;border-radius:50%;background:{{ kindRing }};display:grid;place-items:center;flex:none"><div style="width:72px;height:72px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-family:Fraunces,serif;font-size:22px">375</div></div>
+                <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:14px">
+                  <sc-for list="{{ kinds }}" as="kk" hint-placeholder-count="4"><li style="display:flex;gap:8px;align-items:center"><span style="width:12px;height:12px;border-radius:3px;background:{{ kk.color }}"></span><strong>{{ kk.n }}</strong> {{ kk.label }}</li></sc-for>
+                </ul>
+              </div>
+            </figure>
+            <div style="padding:22px;border-radius:26px;background:var(--note);color:var(--note-ink);transform:var(--tilt)">
+              <div style="font-family:Caveat,cursive;font-size:25px;line-height:1">{{ L.t162 }}</div>
+              <ul style="margin:10px 0 0;padding-left:18px;font-size:14.5px;display:flex;flex-direction:column;gap:6px">
+                <li><strong>{{ L.t163 }}</strong> {{ L.t164 }}</li>
+                <li><strong>{{ L.t165 }}</strong> {{ L.t166 }}</li>
+                <li><strong>{{ L.t167 }}</strong> {{ L.t168 }}</li>
+                <li><strong>{{ L.t169 }}</strong> {{ L.t170 }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </sc-if>
+  </sc-if>
+  <sc-if value="{{ libFamily }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:36px 0 24px">
+      <a href="#/library" style="font-weight:700;font-size:14px;text-decoration:none;color:var(--mid)">← {{ L.library }}</a>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:16px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:{{ fam.badgeBg }};color:#1A1714">{{ fam.scopeLabel }}</span>
+        <span style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--sunk)">{{ fam.count }} {{ L.t171 }}</span>
+        <span style="font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--pink);box-shadow:var(--card-sh)">{{ L.t172 }} {{ checked }}</span>
+      </div>
+      <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(34px,5vw,54px);line-height:1.04;margin:10px 0 12px">{{ fam.name }}</h1>
+      <p style="font-size:18.5px;margin:0;max-width:780px;text-wrap:pretty">{{ fam.summary }}</p>
+    </section>
+    <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start">
+      <div style="flex:2 1 540px;min-width:0;display:flex;flex-direction:column;gap:10px">
+        <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:26px;letter-spacing:-0.02em;margin:0 0 6px">{{ L.t173 }}</h2>
+        <sc-for list="{{ fam.claims }}" as="c" hint-placeholder-count="6">
+          <details id="{{ c.id }}" open="{{ c.open }}" style="border-radius:20px;background:var(--surface);border:1.5px solid {{ c.border }};padding:16px 20px">
+            <summary style="display:flex;gap:10px;align-items:flex-start">
+              <span class="chev" aria-hidden="true" style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1.3;font-feature-settings:'liga';transition:transform .15s;color:var(--lav-d)">chevron_right</span>
+              <span style="flex:1;min-width:0">
+                <span style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"><span style="font-size:11.5px;font-weight:800;padding:1px 8px;border-radius:999px;background:{{ c.kindBg }}">{{ c.kindLabel }}</span><span style="font-size:11.5px;font-weight:700;color:var(--soft);font-family:'JetBrains Mono',monospace">{{ c.id }} · {{ c.jur }}</span></span>
+                <span style="font-weight:800;font-size:16.5px;line-height:1.4">{{ c.q }}</span>
+              </span>
+            </summary>
+            <div style="margin:10px 0 0 32px;display:flex;flex-direction:column;gap:12px">
+              <p style="margin:0">{{ c.p }}</p>
+              <div><div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:4px">{{ L.t174 }}</div>
+                <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:14.5px"><sc-for list="{{ c.src }}" as="s" hint-placeholder-count="1"><li><a href="{{ s.u }}" target="_blank" rel="noopener">{{ s.t }}</a> <span style="color:var(--mid)">· {{ s.l }}</span></li></sc-for></ul></div>
+              <sc-if value="{{ c.hasX }}" hint-placeholder-val="{{ false }}"><div><div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin-bottom:4px">{{ L.t175 }}</div><ul style="margin:0;padding-left:18px;font-size:14.5px"><sc-for list="{{ c.x }}" as="xx" hint-placeholder-count="1"><li>{{ xx }}</li></sc-for></ul></div></sc-if>
+              <sc-if value="{{ c.hasUnk }}" hint-placeholder-val="{{ false }}"><div style="padding:10px 14px;border-radius:14px;background:var(--peach);box-shadow:var(--card-sh)"><div style="font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">{{ L.t176 }}</div><ul style="margin:0;padding-left:18px;font-size:14.5px"><sc-for list="{{ c.unk }}" as="uu" hint-placeholder-count="1"><li>{{ uu }}</li></sc-for></ul></div></sc-if>
+            </div>
+          </details>
+        </sc-for>
+      </div>
+      <aside style="flex:1 1 270px;display:flex;flex-direction:column;gap:16px">
+        <div style="padding:22px;border-radius:24px;background:var(--mint);box-shadow:var(--card-sh)"><h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em;margin:0 0 10px">{{ L.t177 }}</h2>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><sc-for list="{{ fam.notApply }}" as="n" hint-placeholder-count="2"><li style="font-size:14.5px"><strong>{{ n.s }}</strong><br>{{ n.r }}</li></sc-for></ul></div>
+        <div style="padding:22px;border-radius:24px;background:var(--peach);box-shadow:var(--card-sh)"><h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:22px;letter-spacing:-0.02em;margin:0 0 10px">{{ L.t30 }}</h2>
+          <ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14.5px"><sc-for list="{{ fam.gaps }}" as="g" hint-placeholder-count="2"><li>{{ g }}</li></sc-for></ul></div>
+      </aside>
+    </div>
+  </sc-if>
+</sc-if>
+
+<!-- AGENT -->
+<sc-if value="{{ isAgent }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.agent }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px;max-width:880px">{{ L.t178 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t179 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:640px;font-size:17px">{{ L.t180 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start">
+    <section style="border-radius:26px;background:var(--code-bg);color:var(--code-ink);padding:24px">
+      <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin:0 0 14px">{{ L.t181 }}</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ agentCmds }}" as="c" hint-placeholder-count="4">
+          <div>
+            <div style="display:flex;gap:8px;align-items:center;background:rgba(255,255,255,0.06);border-radius:12px;padding:10px 12px">
+              <code style="font-family:'JetBrains Mono',monospace;font-size:13px;flex:1;min-width:0;overflow-wrap:anywhere"><span style="color:#ffc24a">$</span> {{ c.cmd }}</code>
+              <button type="button" onClick="{{ c.copy }}" style="font:inherit;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer;flex:none">{{ c.label }}</button>
+            </div>
+            <div style="font-size:13.5px;opacity:.82;margin:5px 2px 0">{{ c.what }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="border-radius:26px;background:var(--surface);border:1.5px solid var(--line);padding:24px">
+      <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin:0 0 4px">{{ L.t182 }}</h2>
+      <p style="margin:0 0 14px;color:var(--mid);font-size:15px">{{ L.t183 }} <code style="font-family:'JetBrains Mono',monospace">pnpm mcp</code>{{ L.t184 }}</p>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <sc-for list="{{ mcpTools }}" as="m" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding:8px 10px;border-radius:12px;background:var(--sunk);font-size:14px;align-items:baseline"><code style="font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600">{{ m.n }}</code><span>{{ m.d }}</span></div>
+        </sc-for>
+      </div>
+    </section>
+    <section style="border-radius:26px;background:var(--surface);border:1.5px solid var(--line);padding:24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin:0;flex:1">answers.json</h2><button type="button" onClick="{{ exportAnswers }}" style="font:inherit;white-space:nowrap;font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer">{{ exportLabel }}</button></div>
+      <p style="margin:0 0 10px;color:var(--mid);font-size:15px">{{ L.t186 }}</p>
+      <pre style="margin:0;padding:16px;border-radius:16px;background:var(--code-bg);color:var(--code-ink);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;max-height:300px;overflow:auto"><code>{{ answersJson }}</code></pre>
+    </section>
+    <section style="border-radius:26px;background:var(--surface);border:1.5px solid var(--line);padding:24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:24px;letter-spacing:-0.02em;margin:0;flex:1">agent-packet.md</h2><button type="button" onClick="{{ copyPacket }}" style="font:inherit;font-size:12.5px;font-weight:800;padding:5px 12px;border-radius:999px;border:1.5px solid var(--edge);background:var(--surface);color:var(--ink);cursor:pointer">{{ copyPacketLabel }}</button></div>
+      <p style="margin:0 0 10px;color:var(--mid);font-size:15px">{{ L.t188 }}</p>
+      <pre style="margin:0;padding:16px;border-radius:16px;background:var(--code-bg);color:var(--code-ink);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.6;max-height:300px;overflow:auto;white-space:pre-wrap"><code>{{ packet }}</code></pre>
+    </section>
+  </div>
+  <section style="margin-top:18px;padding:22px 24px;border-radius:26px;background:var(--note);color:var(--note-ink)">
+    <div style="font-family:Caveat,cursive;font-size:25px;line-height:1">{{ L.t189 }}</div>
+    <ul style="margin:10px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px">
+      <sc-for list="{{ agentRules }}" as="r" hint-placeholder-count="5"><li style="display:flex;gap:6px;font-weight:700;font-size:15px"><span aria-hidden="true">✦</span>{{ r }}</li></sc-for>
+    </ul>
+  </section>
+</sc-if>
+
+<!-- SPECIALISTS -->
+<sc-if value="{{ isSpecialists }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:44px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.specialists }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t190 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t191 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:620px;font-size:17px">{{ L.t192 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px;align-items:start">
+    <sc-for list="{{ specCols }}" as="col" hint-placeholder-count="2">
+      <section style="border-radius:26px;background:{{ col.tint }};padding:24px;box-shadow:var(--card-sh)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+          <span aria-hidden="true" style="width:44px;height:44px;border-radius:14px;background:var(--surface);display:grid;place-items:center;font-family:'Material Symbols Rounded';font-size:24px;line-height:1;font-feature-settings:'liga';color:{{ col.accent }}">{{ col.icon }}</span>
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:26px;letter-spacing:-0.02em;margin:0;flex:1">{{ col.title }}</h2>
+          <button type="button" onClick="{{ col.copy }}" class="noprint" style="font:inherit;font-size:12.5px;font-weight:800;padding:6px 13px;border-radius:999px;border:var(--bw) solid var(--edge);background:var(--btn);color:var(--btn-ink);cursor:pointer">{{ col.copyLabel }}</button>
+        </div>
+        <sc-for list="{{ col.groups }}" as="g" hint-placeholder-count="4">
+          <div style="margin-bottom:14px">
+            <a href="{{ g.href }}" style="font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);text-decoration:none">✦ {{ g.title }}</a>
+            <ul style="list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ g.qs }}" as="q" hint-placeholder-count="2">
+                <li><label style="display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-radius:14px;background:var(--surface);cursor:pointer;font-size:15px"><input type="checkbox" checked="{{ q.on }}" onChange="{{ q.toggle }}" style="width:18px;height:18px;margin:3px 0 0;accent-color:#7B6BD6;flex:none">{{ q.t }}</label></li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </section>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- FIXPACK -->
+<sc-if value="{{ isFixpack }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:46px 0 26px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">{{ L.t193 }} <span style="font-family:'JetBrains Mono',monospace;text-transform:none;letter-spacing:0">tamara.rocks</span></div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 12px">{{ L.t195 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t196 }}</em></h1>
+    <p style="margin:0;color:var(--mid);max-width:640px;font-size:17px">{{ L.t197 }}</p>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start">
+    <sc-for list="{{ fixCode }}" as="fc" hint-placeholder-count="2">
+      <section style="border-radius:26px;border:var(--bw) solid var(--edge);overflow:hidden;background:var(--surface)">
+        <div style="display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1.5px solid var(--line)">
+          <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:23px;letter-spacing:-0.02em;margin:0;flex:1">{{ fc.title }}</h2>
+          <button type="button" onClick="{{ fc.copy }}" style="font:inherit;font-size:12.5px;font-weight:800;padding:6px 13px;border-radius:999px;border:0;background:#ffc24a;color:#101014;cursor:pointer">{{ fc.label }}</button>
+        </div>
+        <p style="margin:0;padding:12px 20px;font-size:14.5px;color:var(--mid)">{{ fc.note }}</p>
+        <pre style="margin:0;padding:18px 20px;background:var(--code-bg);color:var(--code-ink);overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.7"><code>{{ fc.code }}</code></pre>
+      </section>
+    </sc-for>
+  </div>
+  <section style="margin-top:18px;border-radius:26px;background:var(--surface);border:1.5px solid var(--line);padding:24px">
+    <h2 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;font-size:26px;letter-spacing:-0.02em;margin:0 0 4px">{{ L.t198 }}</h2>
+    <p style="margin:0 0 14px;color:var(--mid)">{{ L.t199 }}</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{ privacyRows }}" as="r" hint-placeholder-count="6">
+        <label style="display:grid;grid-template-columns:24px minmax(130px,1fr) minmax(150px,1.3fr) minmax(180px,1.6fr);gap:12px;align-items:start;padding:12px 14px;border-radius:16px;background:{{ r.bg }};cursor:pointer">
+          <input type="checkbox" checked="{{ r.on }}" onChange="{{ r.toggle }}" style="width:18px;height:18px;margin:3px 0 0;accent-color:#3BAD82">
+          <strong>{{ r.tool }}</strong><span style="color:var(--mid)">{{ r.purpose }}</span><span style="font-size:14px">{{ r.note }}</span>
+        </label>
+      </sc-for>
+    </div>
+  </section>
+  <section style="margin-top:18px;padding:22px 24px;border-radius:26px;background:var(--note);color:var(--note-ink)">
+    <div style="font-family:Caveat,cursive;font-size:25px;line-height:1">{{ L.t200 }}</div>
+    <ol style="margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-weight:700">
+      <sc-for list="{{ fixReadme }}" as="x" hint-placeholder-count="4"><li>{{ x }}</li></sc-for>
+    </ol>
+  </section>
+</sc-if>
+
+<!-- ABOUT -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:46px 0 26px;max-width:780px">
+    <div style="font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)">✦ {{ L.about }}</div>
+    <h1 style="font-family:Fraunces,serif;font-variation-settings:'opsz' 144;font-weight:500;letter-spacing:-0.035em;font-size:clamp(38px,5.4vw,64px);line-height:1.02;margin:10px 0 18px">{{ L.t201 }} <em style="font-style:italic;font-weight:300;background:linear-gradient(transparent 68%,var(--hl) 68%,var(--hl) 90%,transparent 90%);padding:0 .06em">{{ L.t202 }}</em></h1>
+    <div style="display:flex;flex-direction:column;gap:16px;font-size:17.5px">
+      <p style="margin:0">{{ L.t203 }}</p>
+      <p style="margin:0">{{ L.t204 }} {{ checked }}{{ L.t205 }}</p>
+      <p style="margin:0">{{ L.t206 }}</p>
+    </div>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;max-width:1040px">
+    <div style="padding:22px;border-radius:24px;background:var(--mint);box-shadow:var(--card-sh)"><div style="font-weight:800;margin-bottom:6px">{{ L.t207 }}</div><div style="font-size:15px">{{ L.t208 }}</div></div>
+    <div style="padding:22px;border-radius:24px;background:var(--lav);box-shadow:var(--card-sh)"><div style="font-weight:800;margin-bottom:6px">{{ L.t209 }}</div><div style="font-size:15px">{{ L.t210 }}</div></div>
+    <div style="padding:22px;border-radius:24px;background:var(--peach);box-shadow:var(--card-sh)"><div style="font-weight:800;margin-bottom:6px">{{ L.t211 }}</div><div style="font-size:15px">{{ L.t212 }}</div></div>
+    <div style="padding:22px;border-radius:24px;background:var(--pink);box-shadow:var(--card-sh)"><div style="font-weight:800;margin-bottom:6px">{{ L.t213 }}</div><div style="font-size:15px">{{ L.t214 }}</div></div>
+  </div>
+</sc-if>
+
+</main>
+</div>
+
+<footer style="border-top:1.5px solid var(--line);background:var(--sunk)">
+  <div style="max-width:1360px;margin:0 auto;padding:22px 28px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:14px;color:var(--mid)">
+    <span style="font-family:Fraunces,serif;font-weight:500;color:var(--ink)">{{ L.t215 }}</span>
+    <span>{{ L.t2 }}</span>
+    <span style="margin-left:auto">{{ L.t172 }} {{ checked }}{{ L.t216 }} <a href="#/about">{{ L.t217 }}</a></span>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pastel&quot;,&quot;night&quot;],&quot;default&quot;:&quot;pastel&quot;,&quot;tsType&quot;:&quot;'pastel' | 'night'&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;language&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;hr&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en' | 'hr'&quot;,&quot;section&quot;:&quot;Look&quot;},&quot;defaultDepth&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;quick&quot;,&quot;standard&quot;,&quot;deep&quot;],&quot;default&quot;:&quot;standard&quot;,&quot;tsType&quot;:&quot;'quick' | 'standard' | 'deep'&quot;,&quot;section&quot;:&quot;Guides&quot;},&quot;showOutsideEU&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Guides&quot;}}">
+class Component extends DCLogic {
+  state = { d: null, k: null, rules: null, rulesLoading: false, view: 'home', arg: null, depth: null, done: {}, picked: [], answers: null, theme: null, lang: null, gq: '', lq: '', dec: {}, copied: '', narrow: false, menuOpen: false, filter: null, fixTab: {}, recheck: {}, rerunAt: null, qGroup: 'site', gates: {}, editing: null };
+
+  componentDidMount() {
+    let s = {};
+    try { s = JSON.parse(localStorage.getItem('sort-my-sites') || '{}'); } catch (e) {}
+    this.setState({ done: s.done || {}, picked: s.picked || [], answers: s.answers || null, gates: s.gates || {}, theme: s.theme || null, lang: s.lang || null, collapsed: !!s.collapsed });
+    const u = p => new URL(p, document.baseURI).href;
+    import(u('./guide-data.js')).then(m => this.setState({ d: m.default }));
+    // scan-data.js is optional. When the checker has written it, its results replace the empty kit report. Without it nothing changes.
+    Promise.all([import(u('./kit-data.js')), import(u('./scan-data.js')).catch(() => null)]).then(([m, s]) => { const k = m.default; if (!s) { this.setState({ k }); return; } const x = s.default; this.setState({ k: { ...k, sample: false, run: x.run, sites: x.sites, diff: x.diff, findings: x.findings, consent: x.consent, dns: x.dns, consentBySite: x.consentBySite || {} } }); });
+    import(u('./i18n.js')).then(m => this.setState({ i18n: m.default }));
+    import(u('./sms-data.js')).then(m => { const S = m.default; Object.assign(Component.ICONS, S.icons); Object.assign(Component.RELATED, S.related); this.setState({ s: S }); });
+    this.tick = setInterval(() => this.forceUpdate(), 30000);
+    this.onHash = () => this.readHash();
+    this.onResize = () => { const n = window.innerWidth < 900; if (n !== this.state.narrow) this.setState({ narrow: n, menuOpen: false }); };
+    window.addEventListener('hashchange', this.onHash);
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+    this.readHash(true);
+  }
+  componentDidUpdate() {
+    if (this.pendingClaim && this.state.rules) {
+      const el = document.getElementById(this.pendingClaim);
+      if (el) { this.pendingClaim = null; setTimeout(() => window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' }), 60); }
+    }
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); window.removeEventListener('resize', this.onResize); clearTimeout(this.ct); clearInterval(this.tick); }
+
+  readHash(first) {
+    const p = (location.hash || '').replace(/^#\/?/, '').split('/');
+    const views = ['fixpack','report','finding','consent','dns','questions','checklists','guides','topic','basics','decide','dates','world','library','agent','specialists','about'];
+    const view = views.includes(p[0]) ? p[0] : 'home';
+    const arg = p[1] ? decodeURIComponent(p[1]) : null;
+    const extra = view === 'questions' && arg ? { qGroup: arg } : {};
+    if (view !== 'report' && view !== 'finding' && view !== 'consent' && view !== 'dns') extra.example = false;
+    this.setState({ view, arg, arg2: p[2] ? decodeURIComponent(p[2]) : null, menuOpen: false, lq: view === 'library' && p[1] ? '' : this.state.lq, ...extra });
+    this.pendingClaim = view === 'library' && p[2] ? decodeURIComponent(p[2]) : null;
+    if (view === 'library' || view === 'topic' || view === 'finding') this.loadRules();
+    if (view === 'topic') this.loadModules();
+    if (!first) window.scrollTo(0, 0);
+  }
+  loadRules() {
+    if (this.state.rules || this.state.rulesLoading) return;
+    this.setState({ rulesLoading: true });
+    import(new URL('./rules-data.js', document.baseURI).href).then(m => this.setState({ rules: m.default, rulesLoading: false }));
+  }
+  loadModules() {
+    if (this.state.mods || this.modsLoading) return;
+    this.modsLoading = true;
+    import(new URL('./modules-data.js', document.baseURI).href).then(m => this.setState({ mods: m.default }));
+  }
+  persist(next) {
+    const m = { ...this.state, ...next };
+    try { localStorage.setItem('sort-my-sites', JSON.stringify({ done: m.done, picked: m.picked, answers: m.answers, gates: m.gates, theme: m.theme, lang: m.lang, collapsed: m.collapsed })); } catch (e) {}
+    this.setState(next);
+  }
+  copy(key, text) {
+    const ok = () => { this.setState({ copied: key }); clearTimeout(this.ct); this.ct = setTimeout(() => this.setState({ copied: '' }), 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, ok); else ok();
+  }
+  toggleStep(key) { const done = { ...this.state.done }; if (done[key]) delete done[key]; else done[key] = true; this.persist({ done }); }
+
+  static ICONS = { analytics: 'query_stats', storage: 'quiz', signups: 'event_available', referral: 'travel_explore', inbox: 'inbox', campaigns: 'campaign', clients: 'handshake', saas: 'autorenew', 'ai-product': 'forum', 'ai-inbox': 'edit_note', hosting: 'dns', tax: 'receipt_long' };
+  static TV = { '#E9F7F0': 'mint', '#EEEAFB': 'lav', '#FDE9EE': 'pink', '#FFF3D6': 'peach', '#E3F4F6': 'teal' };
+  static RELATED = { analytics: ['F-DEVICE','N-HR-COOKIE-CONSENT','N-HR-COOKIE-WITHDRAW','F-GDPR-NOTICE'], storage: ['F-DEVICE','N-HR-COOKIE-CONSENT','F-SECTOR','F-GDPR-BASIS'], signups: ['F-GDPR-NOTICE','F-GDPR-BASIS','F-EMAIL','N-HR-EMAIL-NATURAL','F-GDPR-RIGHTS'], referral: ['F-DEVICE','N-HR-COOKIE-CONSENT','F-GDPR-PROCESSOR','F-GDPR-TRANSFER'], inbox: ['F-EMAIL','N-HR-EMAIL-NATURAL','F-GDPR-PROCESSOR','F-GDPR-TRANSFER'], campaigns: ['F-EMAIL','N-HR-EMAIL-NATURAL','N-HR-EMAIL-CUSTOMER','N-HR-EMAIL-B2B','F-GDPR-RIGHTS'], clients: ['F-GDPR-PROCESSOR','F-GDPR-TRANSFER','N-HR-TRADER-INFO','N-HR-AUTH','F-NIS2','F-DSA'], saas: ['F-CONSUMER','N-HR-CONSUMER-INFO','N-HR-CONSUMER-WITHDRAW','N-HR-TRADER-INFO','F-ECOMMERCE','F-EAA','N-HR-EAA-SCOPE'], 'ai-product': ['F-AI','F-SECTOR','F-GDPR-PROCESSOR','F-GDPR-TRANSFER','F-CRA'], 'ai-inbox': ['F-AI','F-GDPR-BASIS','F-GDPR-PROCESSOR','F-GDPR-TRANSFER','F-SECTOR'], hosting: ['F-GDPR-PROCESSOR','F-GDPR-TRANSFER','F-NIS2','N-HR-AUTH','F-GDPR-RIGHTS'], tax: ['F-TAX','N-HR-TRADER-INFO','F-GPSR'] };
+  static FN = {"F-AI":"AI Act","F-CONSUMER":"Consumer contracts","F-CRA":"Cyber Resilience Act","F-DEVICE":"Cookies and device access","F-DSA":"Digital Services Act","F-EAA":"Accessibility (EAA)","F-ECOMMERCE":"E-commerce and trader info","F-EMAIL":"Marketing email","F-GDPR-BASIS":"GDPR: legal basis","F-GDPR-NOTICE":"GDPR: privacy notices","F-GDPR-PROCESSOR":"GDPR: processors and DPAs","F-GDPR-RIGHTS":"GDPR: people's rights","F-GDPR-SCOPE":"GDPR: does it apply?","F-GDPR-TRANSFER":"GDPR: transfers outside the EEA","F-GPSR":"Product safety (GPSR)","F-NIS2":"NIS2 cybersecurity","F-SECTOR":"Sensitive data, children, sectors","F-TAX":"VAT and invoicing","N-HR-AUTH":"AZOP and breach routes","N-HR-CONSUMER-INFO":"Consumer info before sale","N-HR-CONSUMER-WITHDRAW":"14-day withdrawal","N-HR-COOKIE-CONSENT":"Cookie consent","N-HR-COOKIE-WITHDRAW":"Reject and withdraw","N-HR-EAA-SCOPE":"Accessibility act (NN 89/2025)","N-HR-EMAIL-B2B":"Email to companies and obrt","N-HR-EMAIL-CUSTOMER":"The customer exception","N-HR-EMAIL-NATURAL":"Email to individuals","N-HR-TRADER-INFO":"Trader info on your site"};
+  static FCOUNT = {"F-AI":19,"F-CONSUMER":17,"F-CRA":16,"F-DEVICE":17,"F-DSA":16,"F-EAA":10,"F-ECOMMERCE":9,"F-EMAIL":11,"F-GDPR-BASIS":11,"F-GDPR-NOTICE":12,"F-GDPR-PROCESSOR":18,"F-GDPR-RIGHTS":19,"F-GDPR-SCOPE":11,"F-GDPR-TRANSFER":24,"F-GPSR":15,"F-NIS2":18,"F-SECTOR":18,"F-TAX":18,"N-HR-AUTH":11,"N-HR-CONSUMER-INFO":10,"N-HR-CONSUMER-WITHDRAW":11,"N-HR-COOKIE-CONSENT":12,"N-HR-COOKIE-WITHDRAW":11,"N-HR-EAA-SCOPE":10,"N-HR-EMAIL-B2B":7,"N-HR-EMAIL-CUSTOMER":6,"N-HR-EMAIL-NATURAL":6,"N-HR-TRADER-INFO":12};
+  static ISO = ['2025-06-28','2026-01-01','2026-06-19','2026-08-02','2026-11-17','2026-12-02','2027-01-01','2027-04-02'];
+  static KINDS = { law: ['Law', 'var(--mint)', '#A8E6CF'], official_guidance: ['Official guidance', 'var(--teal)', '#9AD8EC'], inference: ['Our reading', 'var(--sun)', '#FAE3A0'], proposal: ['Proposal, not law', 'var(--pink)', '#F5A7B8'] };
+  static SM = {
+    observed: { en: 'Observed', hr: 'Uočeno', bg: 'var(--s-obs)', d: 'var(--s-obs-d)', i: 'visibility' },
+    not_observed: { en: 'Not seen this run', hr: 'Nije viđeno', bg: 'var(--s-not)', d: 'var(--s-not-d)', i: 'visibility_off' },
+    could_not_check: { en: 'Could not check', hr: 'Nije provjereno', bg: 'var(--s-cnc)', d: 'var(--s-cnc-d)', i: 'block' },
+    needs_your_answer: { en: 'Needs your answer', hr: 'Treba tvoj odgovor', bg: 'var(--s-ans)', d: 'var(--s-ans-d)', i: 'edit' },
+    needs_a_specialist: { en: 'Needs a specialist', hr: 'Treba stručnjak', bg: 'var(--s-spec)', d: 'var(--s-spec-d)', i: 'gavel' }
+  };
+  static T = {
+    en: { menu: 'Menu', now: 'NOW', add: 'ADD', navLabel: 'Guide', collapse: 'Collapse', sideNote: 'Your ticks and answers stay in this browser.', yourSites: 'Your sites', answers: 'Your answers', learn: 'Learn', handoff: 'Hand off', start: 'Your eight questions', report: 'Report', consent: 'Consent states', dns: 'Email and DNS', questions: 'Questions', checklists: 'Checklists', guides: 'Project guides', basics: 'Basics', decide: 'Quick deciders', dates: 'Dates', world: 'EU, UK, US', library: 'Research library', agent: 'For your agent', specialists: 'Specialist questions', about: 'About', startEyebrow: 'Sort My Sites', problem: 'The problem, in one minute', solution: 'The fix, smallest first', tryit: 'Try it', facts: 'Facts that change the answer', traps: 'Common traps', outside: 'Customers outside the EU', rules: 'The rules underneath', agentList: 'For your coding agent', ask: 'Questions for a specialist', research: 'The research behind this', onPage: 'On this page' },
+    hr: { menu: 'Izbornik', now: 'SADA', add: 'DODAJ', navLabel: 'Vodič', collapse: 'Sakrij', sideNote: 'Tvoje oznake i odgovori ostaju u ovom pregledniku.', yourSites: 'Tvoje stranice', answers: 'Tvoji odgovori', learn: 'Uči', handoff: 'Predaj dalje', start: 'Tvojih osam pitanja', report: 'Izvještaj', consent: 'Stanja privole', dns: 'E-pošta i DNS', questions: 'Pitanja', checklists: 'Popisi', guides: 'Vodiči po projektu', basics: 'Osnove', decide: 'Brze odluke', dates: 'Datumi', world: 'EU, UK, SAD', library: 'Knjižnica', agent: 'Za tvog agenta', specialists: 'Pitanja za stručnjake', about: 'O vodiču', startEyebrow: 'Sort My Sites', problem: 'Problem, u jednoj minuti', solution: 'Rješenje, od najmanjeg', tryit: 'Isprobaj', facts: 'Činjenice koje mijenjaju odgovor', traps: 'Česte zamke', outside: 'Kupci izvan EU-a', rules: 'Pravila ispod', agentList: 'Za tvog agenta', ask: 'Pitanja za stručnjaka', research: 'Istraživanje', onPage: 'Na ovoj stranici' }
+  };
+
+  when(iso) {
+    const days = Math.round((new Date(iso + 'T00:00:00') - new Date(new Date().toDateString())) / 86400000);
+    const hr = this.lang === 'hr';
+    if (days === 0) return hr ? 'danas' : 'today';
+    if (days > 0) return days === 1 ? (hr ? 'sutra' : 'tomorrow') : days < 60 ? (hr ? 'za ' + days + ' dana' : 'in ' + days + ' days') : (hr ? 'za ' + Math.round(days / 30) + ' mj.' : 'in ' + Math.round(days / 30) + ' months');
+    return hr ? 'već vrijedi' : 'applies now';
+  }
+  famOf(cid) { return cid.replace(/-M?\d+$/, ''); }
+  tintOf(hex) { const v = Component.TV[hex] || 'lav'; return { tint: 'var(--' + v + ')', accent: 'var(--' + v + '-d)' }; }
+  answersMap() {
+    if (this.state.answers) return this.state.answers;
+    return {};
+    k.questionnaire.forEach(g => g.qs.forEach(q => { if (q.seed) a[q.id] = { ...q.seed, answeredAt: '2026-11-07' }; }));
+    return a;
+  }
+  setAnswer(qid, value, source) {
+    const a = { ...this.answersMap() };
+    if (value === null) delete a[qid]; else a[qid] = { value, source: source || 'owner', evidence: (a[qid] && source !== 'owner') ? a[qid].evidence : undefined, answeredAt: new Date().toISOString().slice(0, 10) };
+    this.persist({ answers: a });
+  }
+
+  renderVals() {
+    const C = Component, st = this.state, d = st.d, k = st.k, P = this.props;
+    const theme = st.theme || P.theme || 'pastel';
+    const lang = st.lang || P.language || 'en';
+    const I18 = st.i18n || { tplEn: {}, tplHr: {}, data: {}, ui: {} };
+    const L = { ...(C.T[lang] || C.T.en), ...I18.tplEn, ...(lang === 'hr' ? I18.tplHr : {}) };
+    this.lang = lang;
+    const view = st.view;
+    const go = h => () => { location.hash = '#/' + h; };
+    const base = {
+      theme, L, narrow: st.narrow, menuOpen: st.menuOpen, menuDisplay: st.narrow ? 'flex' : 'none',
+      showBackdrop: !!(st.narrow && st.menuOpen), sidePos: st.narrow ? 'fixed' : 'sticky', sideW: st.narrow ? '288px' : (st.collapsed ? '72px' : '264px'), sideShadow: st.narrow ? '0 24px 60px rgba(0,0,0,.28)' : 'none',
+      toggleCollapse: () => this.persist({ collapsed: !st.collapsed }), sideOpen: !st.collapsed, collapseAria: st.collapsed ? (lang === 'hr' ? 'Prikaži izbornik' : 'Expand menu') : (lang === 'hr' ? 'Sakrij izbornik' : 'Collapse menu'),
+      collapseBtnDisp: st.narrow ? 'none' : 'flex', collapseJustify: (st.collapsed && !st.narrow) ? 'center' : 'flex-start', collapseIcon: st.collapsed ? 'left_panel_open' : 'left_panel_close',
+      labelDisp: (st.collapsed && !st.narrow) ? 'none' : 'block', ruleDisp: (st.collapsed && !st.narrow) ? 'block' : 'none',
+      zagrebLine: (lang === 'hr' ? 'u Zagrebu je ' : "it's ") + new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zagreb' }) + (lang === 'hr' ? '' : ' in Zagreb'), showSide: !st.narrow || st.menuOpen,
+      toggleMenu: () => this.setState({ menuOpen: !st.menuOpen }),
+      langOpts: [['en', 'EN'], ['hr', 'HR']].map(([v, l]) => ({ label: l, on: lang === v, bg: lang === v ? 'var(--ink)' : 'transparent', fg: lang === v ? 'var(--bg)' : 'var(--ink)', pick: () => this.persist({ lang: v }) })),
+      themeOpts: [['pastel', 'Day', 'light_mode', 'Pastel workbook theme'], ['night', 'Night', 'dark_mode', 'Night studio theme']].map(([v, l, i, a]) => ({ label: l, icon: i, aria: a, on: theme === v, bg: theme === v ? 'var(--ink)' : 'transparent', fg: theme === v ? 'var(--bg)' : 'var(--ink)', pick: () => this.persist({ theme: v }) })),
+      checked: d ? d.checked : '7 November 2026', loading: !d || !k || !st.s || !st.i18n,
+      zagreb: new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zagreb' })
+    };
+    const flags = ['fixpack','reportEmpty','home','report','finding','consent','dns','questions','checklists','guides','topic','basics','decide','dates','world','library','agent','specialists','about'];
+    flags.forEach(f => base['is' + f[0].toUpperCase() + f.slice(1)] = false);
+    base.navSections = [];
+    if (!d || !k || !st.s || !st.i18n) return base;
+    const S = st.s;
+
+    const T = { ...d.topics, ...S.topics }; T.saas = { ...T.saas, title: S.saasTitle };
+    const ids = S.groups.flatMap(g => g.ids);
+    const groupOf = {}; S.groups.forEach(g => g.ids.forEach(id => groupOf[id] = g.name));
+    const prog = id => { const n = T[id].steps.length; let x = 0; for (let i = 0; i < n; i++) if (st.done[id + ':' + i]) x++; return { done: x, total: n, pct: Math.round(x / n * 100) }; };
+    let allDone = 0, allTotal = 0; ids.forEach(id => { const p = prog(id); allDone += p.done; allTotal += p.total; });
+    const A = this.answersMap();
+    const allQs = k.questionnaire.flatMap(g => g.qs);
+    const qStats = { total: allQs.length, answered: allQs.filter(q => A[q.id] && A[q.id].value !== undefined).length, agent: allQs.filter(q => A[q.id] && A[q.id].source === 'agent_from_owner_files' && !A[q.id].confirmed).length };
+    qStats.barW = Math.round(qStats.answered / qStats.total * 100) + '%';
+    const SM = C.SM;
+    const stLabel = s => SM[s][lang] || SM[s].en;
+    const effState = f => (st.recheck[f.id] ? st.recheck[f.id] : f.state);
+    const F = k.findings;
+    const open = F.filter(f => ['observed','could_not_check','needs_your_answer','needs_a_specialist'].includes(effState(f)));
+
+    const navItem = (h, label, icon, v, count) => { const on = view === v || (v === 'guides' && view === 'topic') || (v === 'report' && view === 'finding'); return { href: '#/' + h, label, icon, tip: label, ring: on ? 'inset 3px 0 0 var(--pink-d)' : 'none', count: count || '', current: on ? 'page' : undefined, bg: on ? 'var(--sunk)' : 'transparent', weight: on ? 800 : 600, iconColor: on ? 'var(--pink-d)' : 'var(--soft)', click: () => { if (location.hash === '#/' + h) window.scrollTo(0, 0); } }; };
+    base.navSections = [
+      { label: L.yourSites, items: [navItem('', L.start, 'explore', 'home'), navItem('report', L.report, 'assignment', 'report', (k.sample === false && k.findings.length) ? String(k.findings.length) : 'not run'), navItem('consent', L.consent, 'view_column', 'consent'), navItem('dns', L.dns, 'alternate_email', 'dns')] },
+      { label: L.answers, items: [navItem('questions', L.questions, 'quiz', 'questions', qStats.answered + '/' + qStats.total), navItem('checklists', L.checklists, 'checklist', 'checklists', allDone + '/' + allTotal)] },
+      { label: L.learn, items: [navItem('guides', L.guides, 'auto_stories', 'guides', String(ids.length)), navItem('basics', L.basics, 'lightbulb', 'basics'), navItem('decide', L.decide, 'alt_route', 'decide'), navItem('dates', L.dates, 'calendar_month', 'dates'), navItem('world', L.world, 'public', 'world'), navItem('library', L.library, 'menu_book', 'library', '375')] },
+      { label: L.handoff, items: [navItem('agent', L.agent, 'smart_toy', 'agent'), navItem('specialists', L.specialists, 'gavel', 'specialists'), navItem('fixpack', 'Fix pack', 'build', 'fixpack'), navItem('about', L.about, 'info', 'about')] }
+    ];
+    const V = { ...base };
+    flags.forEach(f => V['is' + f[0].toUpperCase() + f.slice(1)] = view === f);
+    if (view === 'finding' && !k.findings.length) { V.isFinding = false; V.isReportEmpty = true; }
+
+    const card = (id, i) => { const t = T[id], p = prog(id), c = this.tintOf(t.tint); return { id, href: '#/topic/' + id, title: t.title, line: t.line, icon: C.ICONS[id], tint: c.tint, accent: c.accent, progressLabel: p.done ? p.done + '/' + p.total : p.total + (lang === 'hr' ? ' koraka' : ' steps'), barW: p.pct + '%', delay: (i * 45) + 'ms' }; };
+    V.groups = S.groups.map(g => ({ name: g.name, items: g.ids.map(card) }));
+    const hasScan = k.sample === false && k.findings.length > 0;
+    V.showExampleBanner = !hasScan;
+    V.reportTag = hasScan ? (lang === 'hr' ? '· tvoja provjera' : '· your scan') : L.t36;
+    V.isReport = view === 'report' && (!!st.example || hasScan); V.isReportEmpty = (view === 'report' || (view === 'finding' && !k.findings.length)) && !st.example && !hasScan;
+    V.showExample = () => this.setState({ example: true }); V.hideExample = () => this.setState({ example: false });
+    V.runCmd = 'pnpm check ' + S.sites.map(x => '--site ' + x.domain).join(' ');
+    V.mySites = S.sites.map((x, i) => ({ ...x, delay: (i * 70) + 'ms' }));
+    V.asks = S.asks.map((q, i) => ({ ...q, tint: 'var(--' + q.tint + ')', accent: 'var(--' + q.tint + '-d)', delay: (i * 55) + 'ms' }));
+    V.thisWeek = S.thisWeek.map((w, i) => ({ ...w, n: i + 1, tint: 'var(--' + w.tint + ')', accent: 'var(--' + w.tint + '-d)', delay: (i * 90) + 'ms', status: i === 0 ? 'Open report' : 'Open guide' }));
+    V.weekCols = window.innerWidth >= 1200 ? S.thisWeek.map(w => w.cols).join(' ') : 'repeat(auto-fit,minmax(240px,1fr))';
+    const gts = st.gates || {};
+    const UP = [...d.dates.map((x, i) => ({ ...x, iso: C.ISO[i] })), { d: '12 Jan 2027', h: 'No more SaaS switching fees', tag: 'Selling', iso: '2027-01-12' }];
+    const HREF = { '2026-11-17': '#/topic/pricing', '2026-12-02': '#/topic/ai-product', '2027-01-01': '#/topic/tax', '2027-04-02': '#/topic/start', '2027-01-12': '#/topic/dataact' };
+    const TG = { Selling: 'pink', AI: 'lav', Tax: 'peach', Privacy: 'mint', Accessibility: 'teal' };
+    const nowD = new Date(new Date().toDateString());
+    V.comingUp = UP.filter(x => new Date(x.iso + 'T00:00:00') >= nowD).filter(x => !(x.tag === 'Selling' && gts.selling === 'no') && !(x.tag === 'AI' && gts.ai === 'no')).sort((a, b) => a.iso < b.iso ? -1 : 1).map(x => ({ d: x.d, h: x.h, tag: x.tag, when: this.when(x.iso), href: HREF[x.iso] || '#/dates', bg: 'var(--' + (TG[x.tag] || 'lav') + ')' }));
+    const fx = S.fixPack, pr = st.privOn || {};
+    V.fixCode = [['Workshop form', 'A notice line and a separate unticked box for future workshops.', fx.workshopForm, 'fx1'], ['Contact form', 'The same pattern, without a marketing box.', fx.contactForm, 'fx2']].map(([title, note, code, key]) => ({ title, note, code, copy: () => this.copy(key, code), label: st.copied === key ? 'Copied' : 'Copy' }));
+    V.privacyRows = fx.privacyRows.map((r, i) => ({ ...r, on: !!pr[i], bg: pr[i] ? 'var(--mint)' : 'var(--sunk)', toggle: () => this.setState({ privOn: { ...pr, [i]: !pr[i] } }) }));
+    V.fixReadme = fx.readme;
+    V.openCount = open.length;
+    const tints = ['pink', 'mint', 'lav'];
+    V.top3 = F.slice().sort((a, b) => a.rank - b.rank).filter(f => effState(f) === 'observed').slice(0, 3).map((f, i) => ({ href: '#/finding/' + f.id, n: i + 1, title: f.title, sentence: f.sentence, site: f.site, time: f.time, who: f.who, tint: 'var(--' + tints[i] + ')', accent: 'var(--' + tints[i] + '-d)', dot: SM[effState(f)].d, stateLabel: stLabel(effState(f)), delay: (i * 90) + 'ms' }));
+    V.qStats = qStats;
+    V.copyRun = () => this.copy('run', V.runCmd);
+    V.copyRunLabel = st.copied === 'run' ? 'Copied' : 'Copy';
+    const now = new Date(new Date().toDateString());
+    const nextI = C.ISO.findIndex(x => new Date(x + 'T00:00:00') >= now);
+    V.hasNext = nextI >= 0;
+    V.next = nextI >= 0 ? { d: d.dates[nextI].d, h: d.dates[nextI].h, when: this.when(C.ISO[nextI]) } : { d: '', h: '', when: '' };
+
+    // report
+    V.run = k.run;
+    V.rerunLabel = (st.copied === 'rerun' ? (lang === 'hr' ? 'Kopirano. Pokreni u mapi vodiča.' : 'Copied. Run it in the guide folder.') : (lang === 'hr' ? 'Kopiraj naredbu za novu provjeru' : 'Copy the re-run command'));
+    V.rerunAll = () => this.copy('rerun', V.runCmd);
+    const counts = {}; Object.keys(SM).forEach(s => counts[s] = F.filter(f => effState(f) === s).length);
+    V.stateTiles = Object.keys(SM).map(s => ({ n: counts[s], label: stLabel(s), icon: SM[s].i, d: SM[s].d, bg: SM[s].bg, on: st.filter === s, border: st.filter === s ? 'var(--edge)' : 'transparent', pick: () => this.setState({ filter: st.filter === s ? null : s }) }));
+    V.siteCards = k.sites.map(s => { const fs = F.filter(f => f.site === s.domain); const segs = Object.keys(SM).map(x => ({ n: fs.filter(f => effState(f) === x).length, d: SM[x].d, label: stLabel(x).toLowerCase() })).filter(g => g.n > 0); return { domain: s.domain, role: s.role, pages: s.pages ? s.pages + (s.pages === 1 ? ' page' : ' pages') : 'DNS only', stack: s.stack, segs }; });
+    V.diff = { fixed: k.diff.fixed, added: k.diff.added.map(x => ({ ...x, href: '#/finding/' + x.id })), fixedN: k.diff.fixed.length, addedN: k.diff.added.length, openN: open.length };
+    V.filtered = !!st.filter;
+    V.clearFilter = () => this.setState({ filter: null });
+    V.findingsHeading = st.filter ? stLabel(st.filter) : 'Everything we found';
+    V.findingRows = F.slice().sort((a, b) => a.rank - b.rank).filter(f => !st.filter || effState(f) === st.filter).map((f, i) => { const s = effState(f); return { href: '#/finding/' + f.id, title: f.title, area: f.area, site: f.site, time: f.time, stateLabel: stLabel(s), bg: SM[s].bg, d: SM[s].d, icon: SM[s].i, delay: (i * 35) + 'ms' }; });
+
+    const OUT = this.moreVals(V, { C, st, d, k, P, L, lang, theme, T, ids, groupOf, prog, allDone, allTotal, A, SM, stLabel, effState, F, go });
+    if (lang !== 'hr') return OUT;
+    const dict = this.dict || (this.dict = { ...I18.data, ...I18.ui });
+    const skip = { L: 1, mod: 1, fam: 1, results: 1, href: 1, code: 1, icon: 1, u: 1, theme: 1, packet: 1, answersJson: 1 };
+    const tr = (v, depth) => {
+      if (typeof v === 'string') return dict[v] !== undefined ? dict[v] : v;
+      if (depth > 7 || !v || typeof v !== 'object' || v.$typeof) return v;
+      if (Array.isArray(v)) return v.map(x => tr(x, depth + 1));
+      const o = {}; for (const key in v) o[key] = skip[key] ? v[key] : tr(v[key], depth + 1); return o;
+    };
+    const res = {}; for (const key in OUT) res[key] = skip[key] ? OUT[key] : tr(OUT[key], 0);
+    return res;
+  }
+
+  moreVals(V, X) {
+    const { C, st, d, k, P, L, lang, T, ids, groupOf, prog, allDone, allTotal, A, SM, stLabel, effState, F } = X;
+    const S = st.s;
+    const copied = key => st.copied === key;
+    const famLink = (fid, cid) => '#/library/' + fid + (cid ? '/' + cid : '');
+
+    // finding detail
+    const fi = Math.max(0, F.findIndex(f => f.id === st.arg));
+    const f = F[fi] || { id: '', state: 'needs_your_answer', site: '', area: '', title: '', sentence: '', evidence: [], claims: [], fix: [], recheck: { state: 'needs_your_answer', text: '' }, topic: 'start', verify: '', why: '' };
+    const fs = effState(f), site = k.sites.find(s => s.domain === f.site) || { stack: [] };
+    const tab = Math.min(st.fixTab[f.id] || 0, Math.max(0, f.fix.length - 1));
+    const rr = st.recheck[f.id] ? f.recheck : null;
+    V.fd = {
+      title: f.title, sentence: f.sentence, hr: f.hr || '', hasHr: !!f.hr, site: f.site, area: f.area,
+      stateLabel: stLabel(fs), bg: SM[fs].bg, d: SM[fs].d, icon: SM[fs].i,
+      evidence: f.evidence.filter(e => e.k !== 'shot'), hasShot: f.evidence.some(e => e.k === 'shot'),
+      why: f.why, claims: f.claims.map(c => ({ id: c, name: C.FN[this.famOf(c)] || '', href: famLink(this.famOf(c), c) })), noClaims: !f.claims.length,
+      hasFix: f.fix.length > 0, stack: site.stack.join(', '),
+      tabs: f.fix.map((x, i) => ({ label: x.label, on: i === tab, bg: i === tab ? 'var(--ink)' : 'transparent', fg: i === tab ? 'var(--bg)' : 'var(--ink)', border: i === tab ? 'var(--ink)' : 'var(--line2)', pick: () => this.setState({ fixTab: { ...st.fixTab, [f.id]: i } }) })),
+      code: f.fix[tab] ? f.fix[tab].code : '', copy: () => this.copy('fix', f.fix[tab] ? f.fix[tab].code : ''), copyLabel: copied('fix') ? 'Copied' : 'Copy',
+      verify: f.verify || 'Nothing to do here. The next run checks again.', time: f.time || 'Nothing', who: f.who || 'Nobody, for now',
+      recheck: () => this.copy('rerun-f', V.runCmd), recheckLabel: (st.copied === 'rerun-f' ? (lang === 'hr' ? 'Kopirano. Pokreni u mapi vodiča.' : 'Copied. Run it in the guide folder.') : (lang === 'hr' ? 'Kopiraj naredbu za novu provjeru' : 'Copy the re-run command')),
+      hasResult: false, resText: rr ? rr.text : '', resBg: rr ? SM[rr.state].bg : 'transparent', resD: rr ? SM[rr.state].d : 'transparent', resIcon: rr ? SM[rr.state].i : '',
+      topicHref: '#/topic/' + f.topic, topicTitle: T[f.topic] ? T[f.topic].title : '',
+      prevHref: F.length ? '#/finding/' + F[(fi - 1 + F.length) % F.length].id : '#/report', nextHref: F.length ? '#/finding/' + F[(fi + 1) % F.length].id : '#/report'
+    };
+
+    // consent
+    V.legendCheck = lang === 'hr' ? 'Treba tvoj odgovor ili stručnjaka' : 'Needs your answer or a specialist';
+    const dotOf = s => s === 'bad' ? 'var(--s-obs-d)' : s === 'check' ? 'var(--s-ans-d)' : 'var(--s-not-d)';
+    const PANES = [['A', 'No choice yet', 'First load, nothing pressed', 'Anything optional here loaded before the visitor chose. This pane matters most.'], ['B', 'Rejected', 'A fresh browser, then Reject', 'Only strictly necessary items belong here. Your consent choice itself is fine.'], ['C', 'Accepted', 'A fresh browser, then Accept', 'What you asked permission for. Check it matches your notice.'], ['D', 'Withdrawn', 'Accept, then withdraw, then reload', 'Tracking should stop. Cookies it set should be cleared.']];
+    V.cs0 = { site: S.sites.map(x => x.domain).join(', '), panes: PANES.map(([id, label, sub, note], i) => ({ id, label, sub, note, delay: (i * 90) + 'ms', reqN: 'after your run', stoN: 'after your run', noteBg: 'var(--sunk)', requests: [], storage: [] })) };
+    const bySite = k.consentBySite || {};
+    const consentKit = (st.consentSite && bySite[st.consentSite]) || k.consent;
+    V.consentSites = Object.keys(bySite).map(d => ({ domain: d, on: d === consentKit.site, bg: d === consentKit.site ? 'var(--ink)' : 'var(--surface)', fg: d === consentKit.site ? 'var(--surface)' : 'var(--ink)', pick: () => this.setState({ consentSite: d }) }));
+    V.hasConsentSites = V.consentSites.length > 1;
+    V.cs = consentKit.panes.length ? null : { ...V.cs0, url: 'your-site/', intro: 'Run the checker and each pane fills in from a fresh browser with nothing remembered. Withdraw is not checked yet, so do that one by hand. Here is what to look for in each one.', hasData: false };
+    if (!V.cs) V.cs = { site: consentKit.site, url: 'https://' + consentKit.site + '/', intro: 'Each pane is a fresh browser with nothing remembered. Red dots should wait for Accept. Purple dots need your answer or a specialist. Green dots are fine.', hasData: true, panes: consentKit.panes.map((p, i) => ({ id: p.id, label: p.label, sub: p.sub, note: p.note, delay: (i * 90) + 'ms', reqN: p.requests.length, stoN: p.storage.length, noteBg: (p.requests.concat(p.storage)).some(x => x[2] === 'bad') ? 'var(--s-obs)' : (p.requests.concat(p.storage)).some(x => x[2] === 'check') ? 'var(--s-ans)' : 'var(--s-not)', requests: p.requests.map(r => ({ host: r[0], type: r[1], dot: dotOf(r[2]) })), storage: p.storage.map(r => ({ kind: r[0], name: r[1], dot: dotOf(r[2]) })) })) };
+
+    // dns
+    const DS = { ok: ['Looks good', 'var(--s-not)', 'var(--s-not-d)'], change: ['Change', 'var(--s-obs)', 'var(--s-obs-d)'], add: ['Add', 'var(--s-ans)', 'var(--s-ans-d)'], warn: ['Check first', 'var(--s-spec)', 'var(--s-spec-d)'] };
+    const dc = st.dnsChecked || {};
+    V.dnsDomains = k.dns.map(dm => ({ domain: dm.domain, sends: dm.sends, recheck: () => this.copy('rerun-d', V.runCmd), recheckLabel: (st.copied === 'rerun-d' ? (lang === 'hr' ? 'Kopirano. Pokreni u mapi vodiča.' : 'Copied. Run it in the guide folder.') : (lang === 'hr' ? 'Kopiraj naredbu za novu provjeru' : 'Copy the re-run command')), rows: dm.rows.map((r, i) => { const key = 'dns-' + dm.domain + i; return { type: r.type, name: r.name, now: r.now, next: r.next, hasNext: !!r.next, note: r.note, stateLabel: DS[r.state][0], bg: DS[r.state][1], dot: DS[r.state][2], copy: () => this.copy(key, r.next), copyLabel: copied(key) ? 'Copied' : 'Copy' }; }) }));
+
+    if (!k.dns.length) {
+      const send = st.dnsSend || {};
+      V.dnsDomains = S.sites.map(sd => {
+        const dm = sd.domain, sends = send[dm] !== false;
+        const rows = sends ? [
+          ['MX', dm, 'Your mail host\'s MX records', 'warn', 'Copy these from your mail host\'s setup page. One host per domain.'],
+          ['SPF', dm, 'v=spf1 include:<your mail host> ~all', 'add', 'One SPF record only. Add an include for each tool that sends as this domain. Max 10 lookups.'],
+          ['DKIM', '<selector>._domainkey.' + dm, 'Key from your mail host and from each sending tool', 'add', 'Each sender gives you its own key. Resend, for example, gives one per domain.'],
+          ['DMARC', '_dmarc.' + dm, 'v=DMARC1; p=none; rua=mailto:dmarc@' + dm, 'add', 'Start at none. Read reports for a few weeks. Then quarantine, then reject.'],
+          ['Campaigns', 'send.' + dm, 'Use a subdomain for newsletters', 'warn', 'Keeps campaign reputation away from your everyday mail.']
+        ] : [
+          ['MX', dm, '0 .', 'add', 'Null MX: this domain takes no mail.'],
+          ['SPF', dm, 'v=spf1 -all', 'add', 'Nothing may send as this domain.'],
+          ['DMARC', '_dmarc.' + dm, 'v=DMARC1; p=reject;', 'add', 'Inboxes reject anything claiming to be it.'],
+          ['Wildcard', '*.' + dm, 'Check first', 'warn', 'If random subdomains resolve, check preview and app subdomains before adding these.']
+        ];
+        return { domain: dm, sends: sends ? (this.lang === 'hr' ? 'poštu' : 'mail') : (this.lang === 'hr' ? 'ništa, pa je zaključaj' : 'nothing, so lock it'), recheck: () => this.setState({ dnsSend: { ...send, [dm]: !sends } }), recheckLabel: sends ? 'This domain sends no mail' : 'This domain sends mail', rows: rows.map(([type, name, next, s, note], i) => { const key = 'dns-' + dm + i; return { type, name, now: 'Filled in by your first run', next, hasNext: true, note, stateLabel: DS[s][0], bg: DS[s][1], dot: DS[s][2], copy: () => this.copy(key, next), copyLabel: copied(key) ? 'Copied' : 'Copy' }; }) };
+      });
+    }
+
+    // questions
+    const QN = k.questionnaire, gates = st.gates || {};
+    const qi = Math.max(0, QN.findIndex(g => g.id === st.qGroup));
+    const g = QN[qi];
+    const gateVal = gates[g.id];
+    const yn = [['yes', 'Yes'], ['no', 'No'], ['unknown', "I don't know"]];
+    const pill = on => ({ bg: on ? 'var(--ink)' : 'transparent', fg: on ? 'var(--bg)' : 'var(--ink)', border: on ? 'var(--ink)' : 'var(--line2)' });
+    V.qTabs = QN.map((x, i) => { const n = x.qs.filter(q => A[q.id]).length; const on = i === qi; return { name: x.name, icon: x.icon, on, count: n + '/' + x.qs.length, bg: on ? 'var(--lav)' : 'transparent', border: on ? 'var(--edge)' : 'var(--line2)', pick: () => this.setState({ qGroup: x.id }) }; });
+    const opened = !g.gate || gateVal === 'yes' || gateVal === 'unknown';
+    V.qg = {
+      hasGate: !!g.gate, gateQ: g.gate ? g.gate.t : '', opened, closed: !!g.gate && gateVal === 'no',
+      gateOpts: yn.map(([v, l]) => ({ label: l, on: gateVal === v, ...pill(gateVal === v), pick: () => this.persist({ gates: { ...gates, [g.id]: v } }) })),
+      qs: g.qs.map((q, i) => {
+        const a = A[q.id]; const val = a ? a.value : undefined; const src = a ? a.source : null;
+        const agent = src === 'agent_from_owner_files', chk = src === 'observed_by_checker';
+        const needsConfirm = agent && !a.confirmed;
+        return {
+          id: q.id, t: q.t, delay: (i * 50) + 'ms', isYn: q.type === 'yn', isText: q.type === 'text',
+          opts: yn.map(([v, l]) => ({ label: l, on: val === v, ...pill(val === v), pick: () => this.setAnswer(q.id, val === v ? null : v, 'owner') })),
+          textVal: val && val !== 'unknown' ? val : '', onText: e => this.setAnswer(q.id, e.target.value || null, 'owner'),
+          idk: () => this.setAnswer(q.id, val === 'unknown' ? null : 'unknown', 'owner'), idkOn: val === 'unknown', idkBg: val === 'unknown' ? 'var(--sun)' : 'transparent', idkBorder: val === 'unknown' ? 'var(--edge)' : 'var(--line2)',
+          hasSource: agent || chk, srcLabel: chk ? 'Seen by the checker' : (needsConfirm ? 'From your agent · please confirm' : 'From your agent · confirmed'),
+          srcIcon: chk ? 'visibility' : 'smart_toy', srcBg: chk ? 'var(--teal)' : (needsConfirm ? 'var(--sun)' : 'var(--mint)'), srcD: chk ? 'var(--teal-d)' : 'var(--peach-d)', evidence: a && a.evidence ? a.evidence : '',
+          needsConfirm, confirm: () => { const m = { ...A }; m[q.id] = { ...a, confirmed: true }; this.persist({ answers: m }); }, change: () => this.setAnswer(q.id, null),
+          border: needsConfirm ? 'var(--edge)' : 'var(--line)', topicHref: '#/topic/' + q.topic
+        };
+      })
+    };
+    V.qPrev = qi > 0 ? { has: true, name: QN[qi - 1].name, go: () => { this.setState({ qGroup: QN[qi - 1].id }); window.scrollTo(0, 0); } } : { has: false, name: '', go: null };
+    V.qNext = qi < QN.length - 1 ? { has: true, name: QN[qi + 1].name, go: () => { this.setState({ qGroup: QN[qi + 1].id }); window.scrollTo(0, 0); } } : { has: false, name: '', go: null };
+    const answersObj = {}; Object.keys(A).forEach(id => { const a = A[id]; answersObj[id] = { value: a.value, source: a.confirmed ? 'owner' : a.source, ...(a.evidence ? { evidence: a.evidence } : {}), answeredAt: a.answeredAt }; });
+    V.answersJson = JSON.stringify({ answers: answersObj }, null, 2);
+    V.exportAnswers = () => this.copy('answers', V.answersJson);
+    V.exportLabel = copied('answers') ? 'Copied answers.json' : 'Copy answers.json';
+
+    // checklists
+    const ring = (pct, col) => 'conic-gradient(' + col + ' ' + pct + '%, var(--sunk) 0)';
+    V.all = { done: allDone, total: allTotal, ring: ring(Math.round(allDone / allTotal * 100), 'var(--mint-d)') };
+    const picked = st.picked || [];
+    V.pickChips = ids.map(id => { const on = picked.includes(id); return { title: T[id].title, on, mark: on ? 'check' : 'add', bg: on ? 'var(--lav)' : 'transparent', border: on ? 'var(--edge)' : 'var(--line2)', toggle: () => this.persist({ picked: on ? picked.filter(x => x !== id) : [...picked, id] }) }; });
+    V.noPicked = !picked.length; V.hasPicked = !!picked.length;
+    V.pickedLists = ids.filter(id => picked.includes(id)).map(id => { const t = T[id], p = prog(id), c = this.tintOf(t.tint); return { title: t.title, href: '#/topic/' + id, tint: c.tint, accent: c.accent, done: p.done, total: p.total, barW: p.pct + '%', steps: t.steps.map((s, i) => { const key = id + ':' + i, dn = !!st.done[key]; return { t: s.t, done: dn, strike: dn ? 'line-through' : 'none', color: dn ? 'var(--soft)' : 'var(--ink)', toggle: () => this.toggleStep(key) }; }) }; });
+    V.copyMd = () => this.copy('md', ids.filter(id => picked.includes(id)).map(id => '## ' + T[id].title + '\n' + T[id].steps.map((s, i) => '- [' + (st.done[id + ':' + i] ? 'x' : ' ') + '] ' + s.t + '. ' + s.d + ' Verify: ' + s.v).join('\n')).join('\n\n'));
+    V.copyLabel = copied('md') ? 'Copied' : 'Copy as Markdown';
+    V.printIt = () => window.print();
+    V.resetLabel = st.confirmReset ? 'Tap again to clear every tick' : 'Clear all ticks';
+    V.resetTicks = () => { if (st.confirmReset) this.persist({ done: {}, confirmReset: false }); else this.setState({ confirmReset: true }); };
+
+    // topic
+    const tid = T[st.arg] ? st.arg : ids[0];
+    const t = T[tid], tc = this.tintOf(t.tint), tpr = prog(tid);
+    const depth = st.depth || P.defaultDepth || 'standard';
+    const lvl = { quick: 1, standard: 2, deep: 3 }[depth] || 2;
+    V.t = { ...t, icon: C.ICONS[tid], tint: tc.tint, accent: tc.accent, group: groupOf[tid], isOverview: !!t.overview, overviewLabel: t.overview === 'partly' ? 'Partly researched. Cards marked overview are not yet checked claim by claim.' : 'Overview. Not yet in the claim-by-claim research.' };
+    V.depthOpts = [['quick', 'Quick', 'the gist'], ['standard', 'Standard', 'plus context'], ['deep', 'Deep', 'everything']].map(([v, l, s]) => ({ label: l, sub: s, on: depth === v, bg: depth === v ? 'var(--ink)' : 'var(--surface)', fg: depth === v ? 'var(--bg)' : 'var(--ink)', pick: () => this.setState({ depth: v }) }));
+    V.lvl2 = lvl >= 2; V.lvl3 = lvl >= 3; V.notDeep = lvl < 3;
+    V.deeperLabel = lvl === 1 ? 'Show facts, traps and other countries' : 'Show the rules, agent checklist and specialist questions';
+    V.goDeeper = () => this.setState({ depth: lvl === 1 ? 'standard' : 'deep' });
+    V.tp = { done: tpr.done, total: tpr.total, barW: tpr.pct + '%', pct: tpr.pct + '%', ring: ring(tpr.pct, tc.accent) };
+    V.steps = t.steps.map((s, i) => { const key = tid + ':' + i, dn = !!st.done[key]; return { n: i + 1, t: s.t, d: s.d, v: s.v, done: dn, toggle: () => this.toggleStep(key), strike: dn ? 'line-through' : 'none', bg: dn ? 'var(--mint)' : 'var(--surface)', numColor: dn ? 'var(--mint-d)' : tc.accent, openVerify: lvl >= 3, showDo: lvl >= 2 }; });
+    const TRY = { analytics: ['See what loads before and after each choice on your own sites.', 'Open consent states', '#/consent'], storage: ['Not sure if a key needs consent? Three taps.', 'Does this script need consent?', '#/decide'], signups: ['About to send a follow-up to your signups?', 'Can I send this email?', '#/decide'], referral: ['Run your script through the consent decider.', 'Does this script need consent?', '#/decide'], inbox: ['Compare your records with the suggested ones.', 'Open email and DNS', '#/dns'], campaigns: ['Check a campaign before it goes out.', 'Can I send this email?', '#/decide'], clients: ['Work out your role for one client project.', 'Am I controller or processor?', '#/decide'], saas: ['Answer the selling questions. They decide which rules apply.', 'Answer selling questions', '#/questions/selling'], 'ai-product': ['Answer the AI questions first.', 'Answer AI questions', '#/questions/ai'], 'ai-inbox': ['Work out each provider\'s role.', 'Am I controller or processor?', '#/decide'], hosting: ['Tell the guide which plan each site is on.', 'Open the plan finding', '#/finding/plan'], tax: ['Your four status facts start here.', 'Answer tax questions', '#/questions/tax'] };
+    const tr = TRY[tid] || st.s.tryit[tid]; V.tryit = { text: tr[0], label: tr[1], href: tr[2] };
+    V.showWorld = P.showOutsideEU !== false;
+    V.tw = d.world[tid] || st.s.world[tid] || { uk: '', us: '' };
+    V.hasCounsel = t.ask.counsel.length > 0; V.hasAccountant = t.ask.accountant.length > 0;
+    V.agentItems = k.agentLists[tid] || t.steps.map(x => x.t + '. Verify: ' + x.v);
+    V.copyAgent = () => this.copy('agent', '# ' + t.title + '\n' + V.agentItems.map(x => '- [ ] ' + x).join('\n'));
+    V.copyAgentLabel = copied('agent') ? 'Copied' : 'Copy for your agent';
+    const MO = st.mods && st.mods[tid];
+    V.modLoading = !st.mods;
+    const mapB = bl => bl.map(b => { const cols = b.rows ? Math.max(...b.rows.map(r => r.length)) : 0; return { isP: b.k === 'p', isLi: b.k === 'li', isCode: b.k === 'code', isQ: b.k === 'q', isH: b.k === 'h', isTbl: b.k === 'tbl', b: b.b || '', t: b.t || '', pad: ((b.l || 0) * 22) + 'px', mark: b.n ? b.n + '.' : (b.l ? '–' : '✦'), cols: 'repeat(' + cols + ',minmax(140px,1fr))', minW: (cols * 160) + 'px', links: b.lk || [], rows: (b.rows || []).map((r, ri) => ({ cells: r.map(c => ({ t: c.t, u: c.u, hasU: !!c.u })), w: ri === 0 ? 800 : 400, bg: ri === 0 ? 'var(--sunk)' : 'transparent' })) }; });
+    V.mod = { sections: MO ? MO.sections.map(s => ({ h: s.h, count: s.children.length ? s.children.length + (this.lang === 'hr' ? ' dijelova' : ' parts') : '', lead: mapB(s.lead), children: s.children.map(c => ({ h: c.h, blocks: mapB(c.blocks) })) })) : [] };
+    V.related = (C.RELATED[tid] || []).map(fid => ({ href: famLink(fid), name: C.FN[fid], count: C.FCOUNT[fid], scope: fid.startsWith('N-HR') ? 'HR' : 'EU', badgeBg: fid.startsWith('N-HR') ? '#F5A7B8' : '#C5B8F0' }));
+    const ti = ids.indexOf(tid);
+    V.prevT = { href: '#/topic/' + ids[(ti - 1 + ids.length) % ids.length], title: T[ids[(ti - 1 + ids.length) % ids.length]].title };
+    V.nextT = { href: '#/topic/' + ids[(ti + 1) % ids.length], title: T[ids[(ti + 1) % ids.length]].title };
+    const scrollTo = id => () => { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 84, behavior: 'smooth' }); };
+    const toc = [['sec-problem', L.problem, ''], ['sec-fix', L.solution, tpr.done + '/' + tpr.total], ['sec-try', L.tryit, '']];
+    if (lvl >= 2) { toc.push(['sec-facts', L.facts, t.facts.length], ['sec-traps', L.traps, t.traps.length]); if (V.showWorld) toc.push(['sec-world', L.outside, '']); }
+    if (lvl >= 3) toc.push(['sec-rules', L.rules, t.deeper.length], ['sec-agent', L.agentList, V.agentItems.length], ['sec-ask', L.ask, t.ask.counsel.length + t.ask.accountant.length], ['sec-module', 'Full research module', MO ? MO.sections.length : ''], ['sec-research', L.research, V.related.length]);
+    V.toc = toc.map(([id, label, count], i) => ({ label, count, go: scrollTo(id), dot: i === 1 && tpr.done === tpr.total ? 'var(--mint-d)' : 'var(--line2)' }));
+
+    // basics
+    const TN = ['mint', 'lav', 'pink', 'peach', 'teal', 'lav', 'mint', 'pink'];
+    V.basics = d.basics.map((b, i) => ({ ...b, tint: 'var(--' + TN[i] + ')', accent: 'var(--' + TN[i] + '-d)', delay: (i * 50) + 'ms' }));
+    V.gq = st.gq; V.setGq = e => this.setState({ gq: e.target.value });
+    const gq = st.gq.trim().toLowerCase();
+    V.gloss = d.glossary.filter(x => !gq || (x.t + ' ' + x.d).toLowerCase().includes(gq));
+
+    // deciders
+    const DT = { email: ['pink', 'mail'], script: ['mint', 'code'], role: ['lav', 'badge'] };
+    const TONE = { go: ['var(--mint)', 'var(--mint-d)', 'check_circle'], maybe: ['var(--sun)', 'var(--peach-d)', 'help'], stop: ['var(--pink)', 'var(--pink-d)', 'pan_tool'] };
+    V.deciders = d.deciders.map(D => {
+      const path = (st.dec || {})[D.id] || [];
+      let node = D.start, trail = [], res = null;
+      path.forEach(ix => { const n = D.nodes[node]; const o = n.o[ix]; trail.push({ q: n.q, a: o[0] }); if (o[1].startsWith('R:')) res = D.results[o[1].slice(2)]; else node = o[1]; });
+      const cur = res ? null : D.nodes[node];
+      const pick = ix => () => this.setState({ dec: { ...(st.dec || {}), [D.id]: [...path, ix] } });
+      const tone = res ? TONE[res.tone] : TONE.go;
+      return { title: D.title, icon: DT[D.id][1], tint: 'var(--' + DT[D.id][0] + ')', accent: 'var(--' + DT[D.id][0] + '-d)', trail, asking: !res, q: cur ? cur.q : '', opts: cur ? cur.o.map((o, i) => ({ label: o[0], pick: pick(i) })) : [], done: !!res, resH: res ? res.h : '', resB: res ? res.b : '', resBg: tone[0], resD: tone[1], resIcon: tone[2], resHref: res ? '#/topic/' + res.topic : '', resTopic: res ? T[res.topic].title : '', started: path.length > 0, restart: () => this.setState({ dec: { ...(st.dec || {}), [D.id]: [] } }) };
+    });
+
+    // dates
+    const t0 = +new Date('2025-06-01'), t1 = +new Date('2027-05-15');
+    const pos = iso => Math.max(0, Math.min(100, (+new Date(iso) - t0) / (t1 - t0) * 100)).toFixed(2) + '%';
+    const TAGC = { Accessibility: 'teal', Tax: 'peach', Selling: 'pink', AI: 'lav', Privacy: 'mint' };
+    const today = new Date(new Date().toDateString());
+    V.todayLeft = pos(today.toISOString().slice(0, 10));
+    V.yearTicks = [['2025-07-01', 'Jul 2025'], ['2026-01-01', '2026'], ['2026-07-01', 'Jul'], ['2027-01-01', '2027']].map(([iso, label]) => ({ left: pos(iso), label }));
+    V.dates = d.dates.map((x, i) => { const iso = C.ISO[i], past = new Date(iso + 'T00:00:00') < today, tg = TAGC[x.tag] || 'lav'; return { ...x, when: this.when(iso), left: pos(iso), top: i % 2 ? '34px' : '0px', stem: i % 2 ? '19px' : '53px', bg: past ? 'var(--sunk)' : 'var(--' + tg + ')', dot: past ? 'var(--line2)' : 'var(--' + tg + '-d)', opacity: past ? 0.78 : 1 }; });
+
+    // world
+    const RT = { eu: 'lav', hr: 'pink', uk: 'teal', us: 'peach', else: 'mint' };
+    V.regions = d.regions.map(r => ({ ...r, tint: 'var(--' + RT[r.id] + ')', accent: 'var(--' + RT[r.id] + '-d)' }));
+    V.matrixCols = d.matrix.cols;
+    const MC = { r: ['#A8E6CF', 'Deep', 'Researched rule by rule'], o: ['#F7C59F', 'Overview', 'Overview'], e: ['#C5B8F0', 'EU rule', 'EU rule applies'], '-': ['var(--sunk)', '', 'Not covered'] };
+    V.matrix = d.matrix.rows.map(r => ({ t: r.t, cells: r.c.map(c => ({ bg: MC[c][0], short: MC[c][1], label: MC[c][2], border: c === '-' ? '1px dashed var(--line2)' : '0' })) }));
+
+    // library
+    const R = st.rules;
+    V.rulesLoading = !R; V.rulesReady = !!R;
+    V.lq = st.lq; V.setLq = e => this.setState({ lq: e.target.value });
+    const fam = R && st.arg ? R.find(x => x.id === st.arg) : null;
+    V.libFamily = !!fam; V.libIndex = !fam;
+    const lq = st.lq.trim().toLowerCase();
+    V.searching = !!(R && lq.length > 1); V.notSearching = !V.searching;
+    V.results = []; V.searchLabel = '';
+    if (V.searching) { const out = []; R.forEach(fm => fm.claims.forEach(c => { if ((c.id + ' ' + c.q + ' ' + c.p + ' ' + c.src.map(s => s.l + ' ' + s.t).join(' ')).toLowerCase().includes(lq)) out.push({ id: c.id, q: c.q, p: c.p, fam: C.FN[fm.id] || fm.name, href: famLink(fm.id, c.id) }); })); V.searchLabel = out.length ? (this.lang === 'hr' ? out.length + ' pravila odgovara' + (out.length > 40 ? '. Prikazano prvih 40.' : '.') : out.length + ' rules match' + (out.length > 40 ? '. Showing the first 40.' : '.')) : 'Nothing matches. Try a shorter word.'; V.results = out.slice(0, 40); }
+    const maxC = 24;
+    V.fams = (R || Object.keys(C.FN).map(id => ({ id, name: C.FN[id], claims: { length: C.FCOUNT[id] } }))).map(x => { const hr = x.id.startsWith('N-HR'); const n = x.claims.length; return { href: famLink(x.id), name: C.FN[x.id] || x.name, count: n, barW: Math.round(n / maxC * 100) + '%', bar: hr ? '#F5A7B8' : '#C5B8F0', scope: hr ? 'HR' : 'EU', badgeBg: hr ? '#F5A7B8' : '#C5B8F0' }; });
+    const kc = { law: 0, official_guidance: 0, inference: 0, proposal: 0 };
+    if (R) R.forEach(x => x.claims.forEach(c => { kc[c.k] = (kc[c.k] || 0) + 1; })); else Object.assign(kc, { law: 259, official_guidance: 66, inference: 45, proposal: 5 });
+    const ktot = Object.values(kc).reduce((a, b) => a + b, 0) || 1; let acc = 0; const stops = [];
+    V.kinds = Object.keys(C.KINDS).map(kk => { const n = kc[kk] || 0, a0 = acc; acc += n / ktot * 100; stops.push(C.KINDS[kk][2] + ' ' + a0.toFixed(1) + '% ' + acc.toFixed(1) + '%'); return { label: C.KINDS[kk][0], n, color: C.KINDS[kk][2] }; });
+    V.kindRing = 'conic-gradient(' + stops.join(',') + ')';
+    V.fam = fam ? { name: C.FN[fam.id] || fam.name, summary: fam.summary, count: fam.claims.length, scopeLabel: fam.scope === 'HR' ? 'Croatia' : 'EU', badgeBg: fam.scope === 'HR' ? '#F5A7B8' : '#C5B8F0', notApply: fam.notApply, gaps: fam.gaps, claims: fam.claims.map(c => ({ id: c.id, q: c.q, p: c.p, kindLabel: (C.KINDS[c.k] || [c.k])[0], kindBg: (C.KINDS[c.k] || [0, 'var(--sunk)'])[1], jur: (c.j || []).join(', '), src: c.src, x: c.x, unk: c.unk, hasX: c.x.length > 0, hasUnk: c.unk.length > 0, open: c.id === st.arg2, border: c.id === st.arg2 ? 'var(--edge)' : 'var(--line)' })) } : { name: '', summary: '', count: 0, scopeLabel: '', badgeBg: '', notApply: [], gaps: [], claims: [] };
+
+    // agent
+    V.agentCmds = k.agentCmds.map((c, i) => ({ ...c, copy: () => this.copy('cmd' + i, c.cmd), label: copied('cmd' + i) ? 'Copied' : 'Copy' }));
+    V.mcpTools = k.mcpTools.map(([n, dd]) => ({ n, d: dd }));
+    V.agentRules = k.agentRules;
+    const openF = F.slice().sort((a, b) => a.rank - b.rank).filter(x => effState(x) === 'observed');
+    const todo = ids.filter(id => (picked.length ? picked.includes(id) : true)).map(id => ({ id, steps: T[id].steps.map((s, i) => ({ s, i })).filter(x => !st.done[id + ':' + x.i]) })).filter(x => x.steps.length);
+    V.packet = '# Agent packet\nRules: work only on the domains I name. Never submit forms, log in or claim compliance. Ask me before plan changes, DPAs or DNS edits.\n\n' + todo.map(x => '## ' + T[x.id].title + '\n' + x.steps.map(y => '- [ ] ' + y.s.t + '. ' + y.s.d + ' Verify: ' + y.s.v).join('\n')).join('\n\n');
+    if (false) V.packet = '# Agent packet · sample run ' + k.run.when + '\nRules: work only on named domains. Never submit forms, log in or claim compliance.\n\n' + openF.map((x, i) => { const s = k.sites.find(y => y.domain === x.site); return '## ' + (i + 1) + '. ' + x.title + '\nSite: ' + x.site + ' · Stack: ' + (s ? s.stack.join(', ') : '') + '\nState: observed · Claims: ' + (x.claims.join(', ') || 'technical standard') + '\nFix: ' + (x.fix[0] ? x.fix[0].label : '') + '\nVerify: ' + x.verify; }).join('\n\n');
+    V.copyPacket = () => this.copy('packet', V.packet);
+    V.copyPacketLabel = copied('packet') ? 'Copied' : 'Copy';
+
+    // specialists
+    const off = st.specOff || {};
+    const mk = (kind, title, icon, tint) => {
+      const groups = ids.map(id => ({ id, title: T[id].title, href: '#/topic/' + id, list: T[id].ask[kind] })).filter(x => x.list.length);
+      if (kind === 'counsel') { const sp = F.filter(x => x.state === 'needs_a_specialist'); if (sp.length) groups.unshift({ id: 'report', title: 'From your report', href: '#/report', list: sp.map(x => x.fix[0] ? x.fix[0].code.replace(/\n/g, ' ') : x.title) }); }
+      const all = [];
+      const gs = groups.map(x => ({ title: x.title, href: x.href, qs: x.list.map((q, i) => { const key = kind + x.id + i, on = !off[key]; if (on) all.push(q); return { t: q, on, toggle: () => this.setState({ specOff: { ...off, [key]: on } }) }; }) }));
+      return { title, icon, tint: 'var(--' + tint + ')', accent: 'var(--' + tint + '-d)', groups: gs, copy: () => this.copy('spec' + kind, title + '\n\n' + all.map((q, i) => (i + 1) + '. ' + q).join('\n')), copyLabel: copied('spec' + kind) ? 'Copied' : 'Copy ticked' };
+    };
+    V.specCols = [mk('counsel', 'For your lawyer', 'gavel', 'lav'), mk('accountant', 'For your accountant', 'calculate', 'peach')];
+    return V;
+  }
+}
+</script>
+</body>
+</html>

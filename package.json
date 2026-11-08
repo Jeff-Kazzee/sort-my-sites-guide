@@ -1,0 +1,16 @@
+{
+  "name": "sort-my-sites-guide",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "check": "node engine/src/cli.js --out guide",
+    "guide": "npx serve guide"
+  },
+  "dependencies": {
+    "playwright": "1.64.1"
+  }
+}

@@ -158,7 +158,7 @@ async function stateChoice(browser, url, which, opts) {
     // actually pressed, so a Save in the settings layer is never reported as
     // a Reject button.
     let pressed = which;
-    if (!control && which === 'reject' && banner.settings) {
+    if (!control && which === 'reject' && banner.settings && !banner.cmp) {
       await banner.settings.el.click({ timeout: 5000 }).catch(() => {});
       await page.waitForTimeout(1200);
       control = await findSecondLayerReject(page);

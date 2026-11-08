@@ -128,12 +128,24 @@ export async function findBanner(page) {
     for (const cmp of CMPS) {
       const root = await firstVisible(frame.locator(cmp.root));
       if (!root) continue;
-      // The text fallback stays inside the tool: its root, or an overlay in
-      // this frame. A page button with the same words is not the tool's.
-      const inTool = async (re) => (await byText(root, re)) || (await byText(frame, re, { overlayOnly: true }));
-      const reject = (await bySelectors(frame, cmp.reject)) || (await inTool(REJECT_RE));
-      const accept = (await bySelectors(frame, cmp.accept)) || (await inTool(ACCEPT_RE));
-      const settings = (await bySelectors(frame, cmp.settings)) || (await inTool(SETTINGS_RE));
+      // Only the tool root and frames nested inside it own these controls.
+      const scopes = [root];
+      for (let i = 0; i < scopes.length; i++) {
+        for (const handle of await scopes[i].locator('iframe').elementHandles()) {
+          const child = await handle.contentFrame();
+          if (child) scopes.push(child);
+        }
+      }
+      const inTool = async (selectors, re) => {
+        for (const scope of scopes) {
+          const control = (await bySelectors(scope, selectors)) || (await byText(scope, re));
+          if (control) return control;
+        }
+        return null;
+      };
+      const reject = await inTool(cmp.reject, REJECT_RE);
+      const accept = await inTool(cmp.accept, ACCEPT_RE);
+      const settings = await inTool(cmp.settings, SETTINGS_RE);
       return { cmp: { id: cmp.id, name: cmp.name }, frame, reject, accept, settings, rootFound: true, tcf };
     }
   }

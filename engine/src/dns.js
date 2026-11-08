@@ -116,7 +116,7 @@ export function parseSpf(record) {
       // needs a domain. Any other modifier is ignored.
       const name = mod[1].toLowerCase();
       if (name === 'redirect' || name === 'exp') {
-        if (!SPF_DOMAIN_SPEC.test(mod[2])) out.errors.push(`"${t}" has no valid target`);
+        if (!isDomainSpec(mod[2])) out.errors.push(`"${t}" has no valid target`);
         else if (seenModifiers.has(name)) out.errors.push(`"${t}" repeats the ${name} modifier`);
         else if (name === 'redirect') out.redirect = mod[2];
         seenModifiers.add(name);
@@ -132,12 +132,57 @@ export function parseSpf(record) {
   return out;
 }
 
-// A domain-spec (RFC 7208 section 7.1): labels, which may hold macros, and a
-// dot between at least two of them.
-const SPF_DOMAIN_SPEC = /^(?:[a-z0-9_%{}+=-]+\.)+[a-z0-9_%{}-]+\.?$/i;
+// RFC 7208 section 7.1 grammar:
+//   domain-spec   = macro-string domain-end
+//   domain-end    = ( "." toplabel [ "." ] ) / macro-expand
+//   macro-string  = *( macro-expand / macro-literal )
+//   macro-expand  = ( "%{" macro-letter transformers *delimiter "}" ) / "%%" / "%_" / "%-"
+//   macro-literal = visible characters except "%"
+//   macro-letter  = s l o d i p h c r t v,  transformers = *DIGIT [ "r" ]
+//   delimiter     = . - + , / _ =
+// Section 7.2 allows c, r and t only in explanation text, never in a
+// domain-spec. Section 7.3: a digit transformer must be nonzero.
+const MACRO_EXPAND = /%\{[slodiphv](?:[1-9]\d*)?r?[.\-+,/_=]*\}|%[%_-]/iy;
+const TOPLABEL = /^(?:[a-z0-9]*[a-z][a-z0-9]*|[a-z0-9]+-[a-z0-9-]*[a-z0-9])$/i;
+
+/** Split a macro-string into tokens, or null when it breaks the grammar. */
+function macroTokens(s) {
+  const out = [];
+  let i = 0;
+  while (i < s.length) {
+    if (s[i] === '%') {
+      MACRO_EXPAND.lastIndex = i;
+      const m = MACRO_EXPAND.exec(s);
+      if (!m) return null;
+      out.push({ macro: true, text: m[0] });
+      i += m[0].length;
+    } else {
+      const c = s.charCodeAt(i);
+      if (c < 0x21 || c > 0x7e) return null;
+      out.push({ macro: false, text: s[i] });
+      i++;
+    }
+  }
+  return out;
+}
+
+/** True when s is a domain-spec (RFC 7208 section 7.1). */
+export function isDomainSpec(s) {
+  const tokens = macroTokens(String(s || ''));
+  if (!tokens || !tokens.length) return false;
+  if (tokens[tokens.length - 1].macro) return true;
+  // Otherwise it must end in "." toplabel, with an optional final dot. The
+  // toplabel is made of literals only.
+  let lits = '';
+  for (let k = tokens.length - 1; k >= 0 && !tokens[k].macro; k--) lits = tokens[k].text + lits;
+  const body = lits.endsWith('.') ? lits.slice(0, -1) : lits;
+  const dot = body.lastIndexOf('.');
+  if (dot < 0) return false;
+  return TOPLABEL.test(body.slice(dot + 1));
+}
 
 const prefixOk = (s, max) => /^\d{1,3}$/.test(s) && Number(s) <= max;
-const domainArg = (arg) => /^:[^/]+$/.test(arg) && SPF_DOMAIN_SPEC.test(arg.slice(1));
+const domainArg = (arg) => arg.startsWith(':') && isDomainSpec(arg.slice(1));
 
 /**
  * What is wrong with a mechanism's argument, or '' when it is valid. RFC 7208
@@ -150,9 +195,11 @@ function spfArgProblem(mech, arg) {
   if (mech === 'include' || mech === 'exists') return domainArg(arg) ? '' : (arg ? 'has an invalid domain' : 'has no domain');
   if (mech === 'ptr') return !arg || domainArg(arg) ? '' : 'has an invalid domain';
   if (mech === 'a' || mech === 'mx') {
-    const mm = arg.match(/^(?::([^/]+))?(?:\/(\d+))?(?:\/\/(\d+))?$/);
+    // The domain may hold "/" inside a macro, so the prefix lengths are read
+    // from the end.
+    const mm = arg.match(/^(?::(.+?))?(?:\/(\d+))?(?:\/\/(\d+))?$/);
     if (!mm) return 'has an invalid argument';
-    if (mm[1] && !SPF_DOMAIN_SPEC.test(mm[1])) return 'has an invalid domain';
+    if (mm[1] !== undefined && !isDomainSpec(mm[1])) return 'has an invalid domain';
     if (mm[2] !== undefined && !prefixOk(mm[2], 32)) return 'has an invalid IPv4 prefix length';
     if (mm[3] !== undefined && !prefixOk(mm[3], 128)) return 'has an invalid IPv6 prefix length';
     return '';
@@ -166,7 +213,8 @@ function spfArgProblem(mech, arg) {
     const body = arg.startsWith(':') ? arg.slice(1) : '';
     const slash = body.lastIndexOf('/');
     const addr = slash < 0 ? body : body.slice(0, slash);
-    if (!addr || !isIPv6(addr)) return 'needs a valid IPv6 address';
+    // Node accepts a zone such as "%eth0", which SPF does not (section 5.6).
+    if (!addr || addr.includes('%') || !isIPv6(addr)) return 'needs a valid IPv6 address';
     return slash < 0 || prefixOk(body.slice(slash + 1), 128) ? '' : 'has an invalid IPv6 prefix length';
   }
   return '';
@@ -206,23 +254,34 @@ export async function countSpfLookups(resolver, domain, record, path = [domain],
   const parsed = parseSpf(record);
   const notes = [];
   state.tempErrors ||= [];
+  state.permErrors ||= [];
   const done = (alwaysPass, passVia = '') => {
     if (path.length === 1 && state.count > COUNT_CEILING) notes.push(`Counting stopped after ${COUNT_CEILING} lookups.`);
-    return { count: state.count, notes: [...new Set(notes)], alwaysPass, passVia, tempErrors: [...new Set(state.tempErrors)] };
+    return { count: state.count, notes: [...new Set(notes)], alwaysPass, passVia, tempErrors: [...new Set(state.tempErrors)], permErrors: [...new Set(state.permErrors)] };
   };
   const follow = async (target) => {
     if (path.includes(target)) { notes.push(`${target} includes itself through ${path.join(' > ')}`); return null; }
+    // A target with a macro depends on the message being checked, so it can
+    // only be looked up after expansion (section 5.2). It is counted, not
+    // followed, and is never an error.
+    if (target.includes('%')) { notes.push(`${target} uses a macro, so its record depends on each message and was not followed.`); return null; }
     if (state.count > COUNT_CEILING) return null;
     const sub = await getSpf(resolver, target);
-    // A lookup that failed is a temporary error (RFC 7208 section 5.2), not
-    // a missing record. It leaves the SPF result unknown.
-    if (sub.status === 'ERROR' || sub.status === 'SERVFAIL') {
+    // Any answer other than NOERROR or NXDOMAIN (SERVFAIL, REFUSED as RCODE5,
+    // a timeout, an unknown code) is a temporary error (RFC 7208 section
+    // 5.2). It leaves the SPF result unknown, so nothing is closed by it.
+    if (sub.status !== 'NOERROR' && sub.status !== 'NXDOMAIN') {
       state.tempErrors.push(`${target}: ${sub.status}`);
       notes.push(`The lookup of ${target} failed (${sub.status}), so SPF cannot be judged in this run.`);
       return null;
     }
+    // An include or redirect target with no SPF record, or more than one, is
+    // a permanent error (sections 4.5, 5.2 and 6.1). Receivers treat the
+    // whole record as broken.
     if (sub.records.length !== 1) {
-      notes.push(`${target} has ${sub.records.length ? 'more than one' : 'no'} SPF record`);
+      const why = `the SPF target ${target} has ${sub.records.length ? 'more than one SPF record' : 'no SPF record'}`;
+      state.permErrors.push(why);
+      notes.push(why);
       return null;
     }
     const inner = await countSpfLookups(resolver, target, sub.records[0], [...path, target], state);
@@ -572,7 +631,7 @@ export async function readMailDns(domain, resolver) {
   if (spfRecords.length >= 1) {
     const parsed = parseSpf(spfRecords[0]);
     const lookups = await countSpfLookups(resolver, domain, spfRecords[0]);
-    spf = { record: spfRecords[0], count: spfRecords.length, all: parsed.all, errors: parsed.errors, lookups: lookups.count, notes: lookups.notes, ignored: parsed.ignored, afterAll: parsed.afterAll, alwaysPass: lookups.alwaysPass, passVia: lookups.passVia, tempErrors: lookups.tempErrors };
+    spf = { record: spfRecords[0], count: spfRecords.length, all: parsed.all, errors: [...parsed.errors, ...lookups.permErrors], lookups: lookups.count, notes: lookups.notes, ignored: parsed.ignored, afterAll: parsed.afterAll, alwaysPass: lookups.alwaysPass, passVia: lookups.passVia, tempErrors: lookups.tempErrors };
   }
 
   const dmarcRecords = txtOf(dmarcTxt).filter(isDmarc);
@@ -818,7 +877,7 @@ export function mailRows(d) {
     row('SPF', site, d.spf.record, 'warn', `Could not read ${d.spf.tempErrors.join(', ')}. RFC 7208 treats that as a temporary error, so SPF cannot be judged in this run.`);
   } else if (d.spf) {
     const bad = d.spf.errors.length || d.spf.lookups > 10 || d.spf.all === '+' || d.spf.all === '?';
-    const note = d.spf.errors.length ? `SPF has a syntax error: ${d.spf.errors[0]}. Receivers treat the whole record as broken.` : d.spf.lookups > 10 ? `${d.spf.lookups} lookups. The limit is 10, so receivers treat SPF as broken.` : d.spf.all === '+' ? '+all lets any server send as this domain.' : d.spf.all === '?' ? '?all tells receivers nothing. Use ~all or -all.' : `${d.spf.lookups} of 10 lookups used.`;
+    const note = d.spf.errors.length ? `SPF has an error: ${d.spf.errors[0]}. Receivers treat the whole record as broken.` : d.spf.lookups > 10 ? `${d.spf.lookups} lookups. The limit is 10, so receivers treat SPF as broken.` : d.spf.all === '+' ? '+all lets any server send as this domain.' : d.spf.all === '?' ? '?all tells receivers nothing. Use ~all or -all.' : `${d.spf.lookups} of 10 lookups used.`;
     row('SPF', site, d.spf.record, bad ? 'change' : 'ok', note);
   } else {
     // With no MX, or null MX and no SPF, nothing says whether a tool sends as

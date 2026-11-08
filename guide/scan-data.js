@@ -2,7 +2,7 @@
 export default {
  "sample": false,
  "run": {
-  "when": "8 Nov 2026, 20:55",
+  "when": "8 Nov 2026, 21:56",
   "prev": "8 Nov 2026, 16:42",
   "engine": "engine 0.1.0 · rules 2026-11-08 · run from US, outside the EU",
   "from": "US",
@@ -123,13 +123,13 @@ export default {
      "k": "request",
      "a": "www.googletagmanager.com",
      "b": "https://www.googletagmanager.com/gtag/js?id=G-27YQEFBZD8",
-     "c": "+0.8 s, HTTP 200"
+     "c": "+0.7 s, HTTP 200"
     },
     {
      "k": "request",
      "a": "www.google-analytics.com",
-     "b": "https://www.google-analytics.com/g/collect?v=2&tid=G-27YQEFBZD8&gtm=45je6b41v9255038208za208zd9255038208xf1&_p=1794167738446&gcd=13l3l3l3l1l...",
-     "c": "+1.5 s, HTTP 204"
+     "b": "https://www.google-analytics.com/g/collect?v=2&tid=G-27YQEFBZD8&gtm=45je6b50h2v9255038208za208zd9255038208xf1&_p=1794171371951&gcd=13l3l3l3l...",
+     "c": "+1.4 s, HTTP 204"
     },
     {
      "k": "cookie",
@@ -192,7 +192,7 @@ export default {
      "k": "request",
      "a": "www.nosastra.co",
      "b": "https://www.nosastra.co/_vercel/insights/script.js",
-     "c": "+0.8 s, HTTP 200"
+     "c": "+0.9 s, HTTP 200"
     }
    ],
    "scope": {
@@ -237,7 +237,7 @@ export default {
      "k": "request",
      "a": "www.tamara.rocks",
      "b": "https://www.tamara.rocks/_vercel/insights/script.js",
-     "c": "+0.3 s, HTTP 200"
+     "c": "+0.4 s, HTTP 200"
     }
    ],
    "scope": {
@@ -282,7 +282,7 @@ export default {
      "k": "request",
      "a": "www.vibeordev.com",
      "b": "https://www.vibeordev.com/_vercel/insights/script.js",
-     "c": "+0.8 s, HTTP 200"
+     "c": "+0.7 s, HTTP 200"
     }
    ],
    "scope": {
@@ -370,7 +370,7 @@ export default {
      "k": "request",
      "a": "cdn.simpleicons.org",
      "b": "https://cdn.simpleicons.org/langchain",
-     "c": "+0.3 s, HTTP 200"
+     "c": "+0.4 s, HTTP 200"
     }
    ],
    "scope": {
@@ -414,7 +414,7 @@ export default {
      "k": "request",
      "a": "sgvzghfntliuafzfndes.supabase.co",
      "b": "https://sgvzghfntliuafzfndes.supabase.co/rest/v1/scores?select=id%2Cname%2Cscore%2Ctime_ms%2Cpersona_id%2Cpersona_name%2Cpersona_emoji%2Ccre...",
-     "c": "+0.8 s, HTTP 200"
+     "c": "+0.7 s, HTTP 200"
     }
    ],
    "scope": {
@@ -1470,13 +1470,13 @@ export default {
      "k": "request",
      "a": "fonts.googleapis.com",
      "b": "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,300;1,9..144,500&family=Nun...",
-     "c": "+0.3 s, HTTP 200"
+     "c": "+0.4 s, HTTP 200"
     },
     {
      "k": "request",
      "a": "fonts.gstatic.com",
      "b": "https://fonts.gstatic.com/s/nunito/v32/XRXV3I6Li01BKofINeaB.woff2",
-     "c": "+1.0 s, HTTP 200"
+     "c": "+1.1 s, HTTP 200"
     }
    ],
    "scope": {
@@ -1520,7 +1520,7 @@ export default {
      "k": "request",
      "a": "fonts.googleapis.com",
      "b": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap",
-     "c": "+0.3 s, HTTP 200"
+     "c": "+0.2 s, HTTP 200"
     },
     {
      "k": "request",
